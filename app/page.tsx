@@ -51,7 +51,7 @@ function ProductMockup() {
           <aside className="app-sidebar">
             <div className="mini-brand"><b>P</b><span>Precifica<span>Mix</span></span></div>
             {['Visão Geral', 'Insumos', 'Produtos', 'Precificação', 'Estoque'].map((item, index) => (
-              <div className={`menu-item ${index === 3 ? 'active' : ''}`} key={item}>
+              <div className={`menu-item ${index === 0 ? 'active' : ''}`} key={item}>
                 <i aria-hidden="true" />{item}
               </div>
             ))}
@@ -59,52 +59,39 @@ function ProductMockup() {
           <div className="app-content">
             <div className="app-heading">
               <div><small>PRECIFICAÇÃO INTELIGENTE</small><strong>Açaí completo 500 ml</strong></div>
-              <span>Canal: iFood</span>
+              <span>Cálculo automático</span>
             </div>
-            <div className="pricing-metrics">
-              <div>
-                <small>CUSTO DA RECEITA</small>
-                <b>R$ 8,42</b>
-                <em>Ingredientes calculados</em>
-              </div>
-              <div>
-                <small>EMBALAGEM + PERDAS</small>
-                <b>R$ 1,58</b>
-                <em>Custos incluídos</em>
-              </div>
-              <div className="fee-metric">
-                <small>TAXA DO IFOOD</small>
-                <b>17%</b>
-                <em>R$ 5,08 por venda</em>
-              </div>
-            </div>
-            <div className="pricing-workspace">
-              <div className="calculation-list">
-                <div className="calculation-title">
-                  <span>Composição automática do preço</span>
-                  <small>ATUALIZADO AGORA</small>
+            <div className="pricing-demo">
+              <div className="cost-panel">
+                <div className="demo-title"><span>1</span><strong>Custo real do produto</strong></div>
+                <div className="demo-lines">
+                  <div><span>Ingredientes</span><b>R$ 6,84</b></div>
+                  <div><span>Embalagem</span><b>R$ 0,95</b></div>
+                  <div><span>Perdas estimadas</span><b>R$ 0,63</b></div>
                 </div>
-                <div><span>Custo do produto</span><b>R$ 8,42</b></div>
-                <div><span>Embalagem e perdas</span><b>R$ 1,58</b></div>
-                <div><span>Taxa do canal (17%)</span><b>R$ 5,08</b></div>
-                <div><span>Lucro planejado</span><b>R$ 8,97</b></div>
+                <div className="demo-total"><span>CUSTO TOTAL</span><strong>R$ 8,42</strong></div>
               </div>
-              <div className="pricing-result-card">
-                <small>PREÇO RECOMENDADO NO IFOOD</small>
-                <strong>R$ 29,90</strong>
-                <span><b>✓</b> Margem líquida de 30%</span>
-                <div><small>PREÇO NO BALCÃO</small><b>R$ 24,90</b></div>
+              <div className="channel-panel">
+                <div className="demo-title"><span>2</span><strong>Preço por canal</strong></div>
+                <div className="channel-option counter-option">
+                  <div><small>BALCÃO</small><strong>R$ 24,90</strong></div>
+                  <span>Margem 30%</span>
+                </div>
+                <div className="channel-option ifood-option">
+                  <div><small>IFOOD · TAXA 17%</small><strong>R$ 29,90</strong></div>
+                  <span>Margem preservada</span>
+                </div>
               </div>
             </div>
-            <div className="automatic-message"><span>↻</span> Alterou o custo de um insumo? O sistema recalcula todos os preços automaticamente.</div>
+            <div className="recalculation-note"><span>✓</span><strong>Preço recalculado para você não absorver a taxa do canal.</strong></div>
           </div>
         </div>
       </div>
       <div className="floating-card floating-cost">
-        <span>Custo exato</span><strong>R$ 8,42</strong><small>ficha técnica calculada</small>
+        <span>Custo real</span><strong>R$ 8,42</strong><small>ingredientes + embalagem + perdas</small>
       </div>
       <div className="floating-card floating-price">
-        <span>Preço no iFood</span><strong>R$ 29,90</strong><small>taxa de 17% já incluída</small>
+        <span>Preço no iFood</span><strong>R$ 29,90</strong><small>taxa de 17% considerada</small>
       </div>
     </div>
   );
@@ -264,27 +251,32 @@ export default function Home() {
       </header>
 
       <section className="hero">
-        <div className="container hero-stack">
+        <div className="container hero-grid">
           <div className="hero-copy">
-            <div className="eyebrow"><span>✓</span> PRECIFICAÇÃO INTELIGENTE PARA FOOD SERVICE</div>
-            <h1>Descubra o preço certo de cada produto — <em>já com custos, taxas e lucro.</em></h1>
+            <div className="eyebrow"><span>!</span> VOCÊ PODE ESTAR VENDENDO NO PREJUÍZO SEM PERCEBER</div>
+            <h1>Seu negócio vende. Mas você sabe quanto <em>realmente sobra</em> em cada pedido?</h1>
             <p className="hero-lead">
-              O Precifica Mix calcula sua ficha técnica e mostra quanto cobrar no balcão, iFood,
-              99Food e cartão para você parar de vender sem saber o que realmente sobra.
+              Ingredientes, embalagens, perdas, taxas do iFood e da maquininha podem consumir seu lucro sem aparecer no faturamento. O Precifica Mix mostra o custo real e o preço seguro de cada canal — sem planilhas e sem precisar entender de finanças.
             </p>
             <div className="hero-benefits">
-              <span><CheckIcon /> Custo por ingrediente</span>
-              <span><CheckIcon /> Taxas de cada canal</span>
-              <span><CheckIcon /> Margem e lucro real</span>
+              <span><CheckIcon /> Descubra o custo real de cada produto</span>
+              <span><CheckIcon /> Inclua iFood, cartão e delivery</span>
+              <span><CheckIcon /> Veja sua margem antes de vender</span>
             </div>
           </div>
+          <p className="mockup-intro">Veja como o Precifica Mix transforma custos, taxas e margem em um preço seguro para cada canal de venda.</p>
           <ProductMockup />
-          <div className="hero-action">
+          <div className="hero-conversion">
+            <div className="quick-anchor">
+              <span>CONTA RÁPIDA</span>
+              <strong>2 produtos × 30 vendas × R$ 0,62 = R$ 37,20</strong>
+              <small>Uma pequena diferença no preço já pode superar o valor total do acesso.</small>
+            </div>
             <a className="primary-cta" href="#oferta">
-              QUERO PRECIFICAR MEUS PRODUTOS CERTO <span>→</span>
-              <small>Veja o preço ideal antes de fazer a próxima venda</small>
+              QUERO PARAR DE PERDER LUCRO NO ACHISMO <span>→</span>
+              <small>Pagamento único · sem assinatura</small>
             </a>
-            <p className="microcopy"><span aria-hidden="true">🔒</span> Compra segura · 7 dias de garantia · Sem assinatura</p>
+            <p className="microcopy"><span aria-hidden="true">🔒</span> Compra segura pela Hotmart · 7 dias para testar</p>
           </div>
         </div>
       </section>
@@ -293,7 +285,7 @@ export default function Home() {
         <div className="container trust-grid">
           <div><b>✓</b><span><strong>Pagamento único</strong><small>Sem mensalidade ou fidelidade</small></span></div>
           <div><b>✓</b><span><strong>Acesso imediato</strong><small>Comece assim que confirmar</small></span></div>
-          <div><b>✓</b><span><strong>Garantia de 7 dias</strong><small>Você testa sem correr risco</small></span></div>
+          <div><b>✓</b><span><strong>Garantia de 7 dias</strong><small>Teste antes de decidir ficar</small></span></div>
           <div><b>✓</b><span><strong>Feito para food service</strong><small>Da cozinha ao cardápio</small></span></div>
         </div>
       </section>
@@ -474,9 +466,9 @@ export default function Home() {
         <div className="container offer-wrap">
           <div className="offer-copy">
             <Brand />
-            <span className="section-kicker">CONDIÇÃO ESPECIAL POR TEMPO LIMITADO</span>
-            <h2>Quanto custa continuar vendendo um produto sem saber se ele dá lucro?</h2>
-            <p>Um único erro de porção ou precificação pode custar mais do que o acesso completo ao Precifica Mix.</p>
+            <span className="section-kicker">OFERTA DE LANÇAMENTO POR TEMPO LIMITADO</span>
+            <h2>Por R$ 37, você deixa de adivinhar e começa a enxergar quanto realmente sobra.</h2>
+            <p>Se dois produtos deixarem escapar apenas R$ 0,62 em 30 vendas cada, a diferença já passa do valor completo do acesso. O Precifica Mix é um pagamento único para proteger suas próximas decisões de preço.</p>
             <ul className="offer-benefits">
               <li><CheckIcon /> Precificação automática dos produtos</li>
               <li><CheckIcon /> Fichas técnicas completas</li>
@@ -491,13 +483,17 @@ export default function Home() {
             <p>De <s>R$ 97,00</s> por apenas:</p>
             <div className="price"><span>R$</span><strong>37</strong><small>,00</small></div>
             <div className="one-time"><span>✓</span><div><strong>Pagamento único</strong><small>Sem assinatura e sem mensalidade</small></div></div>
-            <p className="price-argument">Menos do que o prejuízo que um único produto mal precificado pode causar.</p>
+            <div className="anchor-calculation">
+              <small>UMA DIFERENÇA QUE PARECE PEQUENA</small>
+              <strong>2 produtos × 30 vendas × R$ 0,62 = R$ 37,20</strong>
+              <span>O acesso pode se pagar ao revelar poucos centavos que estavam escapando de cada venda.</span>
+            </div>
             <TrackedCheckoutLink className="buy-button" baseUrl={CHECKOUT_URL}>
               QUERO PRECIFICAR CERTO AGORA <span>→</span>
               <small>Acesso liberado após a confirmação</small>
             </TrackedCheckoutLink>
             <div className="payment-note">🔒 Pagamento processado com segurança pela Hotmart</div>
-            <div className="guarantee-box"><span>♢</span><div><strong>GARANTIA DE 7 DIAS</strong><p>Conheça a ferramenta sem risco. Se não fizer sentido para você, solicite o reembolso dentro do prazo.</p></div></div>
+            <div className="guarantee-box"><span>♢</span><div><strong>TESTE POR 7 DIAS SEM RISCO</strong><p>Cadastre seus produtos e conheça a ferramenta. Se não fizer sentido para o seu negócio, solicite o reembolso pela Hotmart dentro do prazo.</p></div></div>
           </div>
         </div>
       </section>
