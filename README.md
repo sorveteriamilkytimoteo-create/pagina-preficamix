@@ -1,37 +1,54 @@
-# Precifica Mix — Página de Vendas
+# Precifica Mix — Página de vendas
 
-Página direta da oferta Precifica Mix, pronta para GitHub e Vercel.
+Página de vendas em Next.js 15 com encaminhamento completo de UTMs para o checkout da Hotmart.
 
-## Publicação
+## Variáveis de ambiente na Vercel
 
-1. Envie o conteúdo desta pasta para a raiz de um repositório novo no GitHub.
-2. Importe o repositório na Vercel com o preset **Next.js**.
-3. Cadastre as variáveis do arquivo `.env.example` em **Settings → Environment Variables**.
-4. Faça o deploy.
+Cadastre em **Settings → Environment Variables** para Production, Preview e Development:
 
-## Rastreamento
-
-Configure os mesmos IDs já utilizados nos outros funis:
-
+- `NEXT_PUBLIC_TRACKING_MODE`: use `gtm` quando GA4 e Meta Pixel estiverem configurados dentro do GTM; use `direct` somente para dispará-los diretamente pela aplicação.
 - `NEXT_PUBLIC_GTM_ID`
 - `NEXT_PUBLIC_GA4_ID`
 - `NEXT_PUBLIC_META_PIXEL_ID`
 - `NEXT_PUBLIC_UTMIFY_PIXEL_ID`
+- `NEXT_PUBLIC_HOTMART_CHECKOUT_URL`
 - `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_RECENT_SALES_JSON` (opcional): lista de compras reais exibidas na notificação. Use somente primeiro nome, cidade e UF.
 
-O clique no checkout envia `checkout_iniciado` ao GA4/GTM e
-`InitiateCheckout` ao Meta Pixel. Os parâmetros UTM são preservados no checkout.
+Depois de salvar ou alterar variáveis, faça um novo deploy.
 
-## Notificação de compra verificada
+Exemplo de notificação com dados reais:
 
-A prova social aparece após 14 segundos, permanece por 6,5 segundos e alterna
-compras a cada 45 segundos. No celular, fica acima do botão fixo da oferta.
+```text
+NEXT_PUBLIC_RECENT_SALES_JSON=[{"name":"Ana","city":"Timóteo","state":"MG"},{"name":"Carlos","city":"Ipatinga","state":"MG"}]
+```
 
-Ela fica oculta até receber compras reais por uma destas fontes privadas:
+Sem essa variável, a página exibe uma confirmação anonimizada. A primeira notificação aparece após 5 segundos e as próximas a cada 22 segundos.
 
-- `SOCIAL_PROOF_API_URL`: endpoint que retorna `{ "sales": [{ "id": "...",
-  "firstName": "...", "city": "...", "state": "MG" }] }`.
-- `SOCIAL_PROOF_API_TOKEN`: token Bearer opcional do endpoint.
-- `VERIFIED_RECENT_SALES_JSON`: alternativa temporária com o mesmo conteúdo.
+## Rastreamento do checkout
 
-Somente primeiro nome, cidade e estado são exibidos. Não use dados inventados.
+A página captura e mantém todos os parâmetros `utm_*`, além de `fbclid`, `gclid`, `ttclid`, `src`, `sck` e `xcod`. No clique do botão de compra, o endereço do checkout é reconstruído com os parâmetros mais recentes antes do redirecionamento.
+
+Também são carregados os dois scripts da UTMify usados no diagnóstico Precifica Mix:
+
+- `https://cdn.utmify.com.br/scripts/pixel/pixel.js`
+- `https://cdn.utmify.com.br/scripts/utms/latest.js`
+
+Eventos enviados ao `dataLayer`: `page_view`, `view_content` e `checkout_iniciado`.
+
+## Teste local
+
+```bash
+npm install
+npm run typecheck
+npm run build
+npm run dev
+```
+
+Teste a entrada com parâmetros completos, por exemplo:
+
+```text
+http://localhost:3000/?utm_source=meta&utm_medium=cpc&utm_campaign=teste&utm_content=criativo_1&utm_term=food_service&utm_id=campanha_123&src=meta&sck=criativo_1&xcod=teste_123
+```
+
+Ao clicar em comprar, esses parâmetros devem aparecer também no endereço da Hotmart.

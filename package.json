@@ -1,26 +1,23 @@
 {
   "name": "precifica-mix-pagina-vendas",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "next": "15.5.22",
-    "react": "19.2.6",
-    "react-dom": "19.2.6"
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "4.2.1",
-    "@types/node": "22.19.19",
-    "@types/react": "19.2.14",
-    "@types/react-dom": "19.2.3",
-    "eslint": "9.39.4",
-    "eslint-config-next": "15.5.22",
-    "tailwindcss": "4.2.1",
-    "typescript": "5.9.3"
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.9.0"
   }
 }

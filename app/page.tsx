@@ -1,6 +1,9 @@
-import { RecentSaleToast } from "./recent-sale-toast";
+import { TrackedCheckoutLink } from "./tracking";
+import { RecentSaleNotification } from "./recent-sale-notification";
 
-const CHECKOUT_URL = "https://pay.hotmart.com/D106845746F?checkoutMode=10";
+const CHECKOUT_URL =
+  process.env.NEXT_PUBLIC_HOTMART_CHECKOUT_URL ||
+  "https://pay.hotmart.com/D106845746F?checkoutMode=10";
 
 const softwareSchema = {
   "@context": "https://schema.org",
@@ -148,6 +151,29 @@ const audiences = [
   "Bares, cafés e cozinhas",
 ];
 
+const salesChannels = [
+  {
+    icon: "↗",
+    title: "iFood e delivery",
+    text: "Inclua a comissão percentual e as cobranças do canal para não absorver taxas sem perceber.",
+  },
+  {
+    icon: "%",
+    title: "Máquinas de cartão",
+    text: "Considere débito, crédito e parcelamento para enxergar quanto realmente sobra em cada venda.",
+  },
+  {
+    icon: "⌁",
+    title: "99Food e marketplaces",
+    text: "Configure as condições de cada plataforma e compare o preço necessário por canal.",
+  },
+  {
+    icon: "▣",
+    title: "Balcão e retirada",
+    text: "Mantenha preços coerentes sem misturar custos de canais com operações diferentes.",
+  },
+];
+
 const faqs = [
   {
     question: "Preciso entender de finanças ou precificação?",
@@ -164,6 +190,10 @@ const faqs = [
   {
     question: "Funciona para qualquer negócio de alimentação?",
     answer: "Sim. A estrutura foi pensada para restaurantes, lanchonetes, hamburguerias, pizzarias, confeitarias, padarias, delivery, sorveterias, açaiterias e outros negócios de food service.",
+  },
+  {
+    question: "Consigo considerar taxas do iFood e da máquina de cartão?",
+    answer: "Sim. Você pode configurar os custos dos canais de venda, como comissão do iFood, taxas de outros marketplaces e percentuais das máquinas de cartão, para analisar quanto cada venda realmente deixa no caixa.",
   },
   {
     question: "Consigo acessar pelo celular?",
@@ -211,7 +241,6 @@ export default function Home() {
       <header className="site-header">
         <div className="container header-inner">
           <Brand />
-          <a className="header-cta" href="#oferta">VER OFERTA <span>→</span></a>
         </div>
       </header>
 
@@ -305,6 +334,34 @@ export default function Home() {
                 <p>{feature.text}</p>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="channels-section section-space">
+        <div className="container">
+          <div className="section-heading centered">
+            <span className="section-kicker">LUCRO DIFERENTE EM CADA CANAL</span>
+            <h2>O preço que funciona no balcão pode dar <em>prejuízo no delivery.</em></h2>
+            <p>
+              O Precifica Mix permite considerar as taxas dos canais de venda para você não confundir
+              faturamento com o valor que realmente fica no caixa.
+            </p>
+          </div>
+          <div className="channels-grid">
+            {salesChannels.map((channel) => (
+              <article className="channel-card" key={channel.title}>
+                <span>{channel.icon}</span>
+                <div>
+                  <h3>{channel.title}</h3>
+                  <p>{channel.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="channel-callout">
+            <strong>Veja o custo real da venda antes de definir o preço.</strong>
+            <span>Taxas percentuais, cobranças fixas e condições de cada canal entram na sua análise.</span>
           </div>
         </div>
       </section>
@@ -414,10 +471,10 @@ export default function Home() {
             <div className="price"><span>R$</span><strong>37</strong><small>,00</small></div>
             <div className="one-time"><span>✓</span><div><strong>Pagamento único</strong><small>Sem assinatura e sem mensalidade</small></div></div>
             <p className="price-argument">Menos do que o prejuízo que um único produto mal precificado pode causar.</p>
-            <a className="buy-button" href={CHECKOUT_URL}>
+            <TrackedCheckoutLink className="buy-button" baseUrl={CHECKOUT_URL}>
               QUERO PRECIFICAR CERTO AGORA <span>→</span>
               <small>Acesso liberado após a confirmação</small>
-            </a>
+            </TrackedCheckoutLink>
             <div className="payment-note">🔒 Pagamento processado com segurança pela Hotmart</div>
             <div className="guarantee-box"><span>♢</span><div><strong>GARANTIA DE 7 DIAS</strong><p>Conheça a ferramenta sem risco. Se não fizer sentido para você, solicite o reembolso dentro do prazo.</p></div></div>
           </div>
@@ -461,9 +518,7 @@ export default function Home() {
           <div><span>🔒 Ambiente seguro</span><a href="https://wa.me/5531983238881" target="_blank" rel="noreferrer">Suporte</a></div>
         </div>
       </footer>
-
-      <RecentSaleToast />
-      <a className="mobile-sticky" href="#oferta">VER OFERTA POR R$ 37 <span>→</span></a>
+      <RecentSaleNotification />
     </main>
   );
 }

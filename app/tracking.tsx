@@ -1,88 +1,302 @@
 "use client";
 
-import Script from "next/script";
-import { useEffect } from "react";
+import {
+  type AnchorHTMLAttributes,
+  type MouseEvent,
+  type ReactNode,
+  useEffect,
+} from "react";
+
+const TRACKING_STORAGE_KEY = "precifica_mix_sales_tracking";
+const CHECKOUT_DEDUPLICATION_MS = 1_500;
+
+const knownTrackingKeys = new Set([
+  "fbclid",
+  "gclid",
+  "ttclid",
+  "src",
+  "sck",
+  "xcod",
+]);
+
+type TrackingParams = Record<string, string>;
 
 declare global {
   interface Window {
     dataLayer?: Array<Record<string, unknown>>;
+    pixelId?: string;
+    __precificaSalesTrackingInitialized?: boolean;
+    __precificaPageViewSent?: boolean;
+    __precificaLastCheckoutAt?: number;
     gtag?: (...args: unknown[]) => void;
-    fbq?: (...args: unknown[]) => void;
-    _fbq?: unknown;
+    fbq?: {
+      (...args: unknown[]): void;
+      callMethod?: (...args: unknown[]) => void;
+      queue?: unknown[];
+      loaded?: boolean;
+      version?: string;
+      push?: (...args: unknown[]) => void;
+    };
+    _fbq?: Window["fbq"];
   }
 }
 
-const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
-const ga4Id = process.env.NEXT_PUBLIC_GA4_ID;
-const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
-const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+function sanitizeValue(value: string) {
+  return value.trim().slice(0, 500);
+}
 
-function appendTrackedUtms(url: URL) {
-  for (const key of UTM_KEYS) {
-    const value = window.localStorage.getItem(`precifica_${key}`);
-    if (value && !url.searchParams.has(key)) url.searchParams.set(key, value);
+function isTrackingKey(key: string) {
+  const normalizedKey = key.toLowerCase();
+  return normalizedKey.startsWith("utm_") || knownTrackingKeys.has(normalizedKey);
+}
+
+function readStoredTracking(): TrackingParams {
+  if (typeof window === "undefined") return {};
+
+  try {
+    const stored = window.sessionStorage.getItem(TRACKING_STORAGE_KEY);
+    if (!stored) return {};
+    const parsed = JSON.parse(stored) as unknown;
+    return parsed && typeof parsed === "object" ? (parsed as TrackingParams) : {};
+  } catch {
+    return {};
   }
 }
 
-export function Tracking() {
-  useEffect(() => {
-    const currentParams = new URLSearchParams(window.location.search);
-    for (const key of UTM_KEYS) {
-      const value = currentParams.get(key);
-      if (value) window.localStorage.setItem(`precifica_${key}`, value);
+export function captureTrackingParams(): TrackingParams {
+  if (typeof window === "undefined") return {};
+
+  const merged: TrackingParams = { ...readStoredTracking() };
+  const search = new URLSearchParams(window.location.search);
+
+  search.forEach((value, key) => {
+    const normalizedKey = key.toLowerCase();
+    if (value && isTrackingKey(normalizedKey)) {
+      merged[normalizedKey] = sanitizeValue(value);
+    }
+  });
+
+  try {
+    window.sessionStorage.setItem(TRACKING_STORAGE_KEY, JSON.stringify(merged));
+  } catch {
+    // O checkout continua funcionando mesmo quando o navegador bloqueia storage.
+  }
+
+  return merged;
+}
+
+export function getTrackingParams() {
+  return captureTrackingParams();
+}
+
+function addScript(
+  id: string,
+  src: string,
+  attributes: Record<string, string> = {},
+) {
+  if (document.getElementById(id)) return;
+
+  const script = document.createElement("script");
+  script.id = id;
+  script.async = true;
+  script.src = src;
+  Object.entries(attributes).forEach(([key, value]) => script.setAttribute(key, value));
+  document.head.appendChild(script);
+}
+
+function initializeGtm(gtmId: string) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+  addScript("precifica-gtm", `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(gtmId)}`);
+}
+
+function initializeGa4(ga4Id: string) {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || ((...args: unknown[]) => window.dataLayer?.push(args as unknown as Record<string, unknown>));
+  window.gtag("js", new Date());
+  window.gtag("config", ga4Id, { send_page_view: false });
+  addScript("precifica-ga4", `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga4Id)}`);
+}
+
+function initializeMetaPixel(pixelId: string) {
+  if (!window.fbq) {
+    const fbq = function (...args: unknown[]) {
+      if (fbq.callMethod) fbq.callMethod(...args);
+      else fbq.queue?.push(args);
+    } as NonNullable<Window["fbq"]>;
+    fbq.push = fbq;
+    fbq.loaded = true;
+    fbq.version = "2.0";
+    fbq.queue = [];
+    window.fbq = fbq;
+    window._fbq = fbq;
+    addScript("precifica-meta-pixel", "https://connect.facebook.net/en_US/fbevents.js");
+  }
+
+  window.fbq?.("init", pixelId);
+}
+
+function initializeUtmify(pixelId: string) {
+  window.pixelId = pixelId;
+  addScript("precifica-utmify-pixel", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  addScript(
+    "precifica-utmify-utms",
+    "https://cdn.utmify.com.br/scripts/utms/latest.js",
+    { "data-utmify-prevent-subids": "" },
+  );
+}
+
+function pushDataLayerEvent(event: string, data: Record<string, unknown> = {}) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event, ...data });
+}
+
+function sendPageView() {
+  if (window.__precificaPageViewSent) return;
+  window.__precificaPageViewSent = true;
+
+  const tracking = getTrackingParams();
+  pushDataLayerEvent("page_view", {
+    page_title: document.title,
+    page_location: window.location.href,
+    produto: "precifica_mix",
+    ...tracking,
+  });
+  pushDataLayerEvent("view_content", {
+    content_name: "Precifica Mix",
+    content_category: "Food Service",
+    value: 37,
+    currency: "BRL",
+    meta_event_name: "ViewContent",
+    ...tracking,
+  });
+
+  const mode = process.env.NEXT_PUBLIC_TRACKING_MODE || "gtm";
+  if (mode === "direct") {
+    window.gtag?.("event", "page_view", {
+      page_title: document.title,
+      page_location: window.location.href,
+      produto: "precifica_mix",
+      ...tracking,
+    });
+    window.fbq?.("track", "PageView");
+    window.fbq?.("track", "ViewContent", {
+      content_name: "Precifica Mix",
+      content_category: "Food Service",
+      value: 37,
+      currency: "BRL",
+    });
+  }
+}
+
+function trackCheckoutStarted(tracking: TrackingParams) {
+  const now = Date.now();
+  if (now - (window.__precificaLastCheckoutAt || 0) < CHECKOUT_DEDUPLICATION_MS) {
+    return false;
+  }
+  window.__precificaLastCheckoutAt = now;
+
+  pushDataLayerEvent("checkout_iniciado", {
+    produto: "precifica_mix",
+    content_name: "Precifica Mix",
+    value: 37,
+    currency: "BRL",
+    meta_event_name: "InitiateCheckout",
+    ...tracking,
+  });
+
+  if ((process.env.NEXT_PUBLIC_TRACKING_MODE || "gtm") === "direct") {
+    window.gtag?.("event", "checkout_iniciado", {
+      produto: "precifica_mix",
+      value: 37,
+      currency: "BRL",
+      ...tracking,
+    });
+    window.fbq?.("track", "InitiateCheckout", {
+      content_name: "Precifica Mix",
+      value: 37,
+      currency: "BRL",
+    });
+  }
+
+  return true;
+}
+
+export function buildCheckoutUrl(baseUrl: string, tracking: TrackingParams) {
+  try {
+    const url = new URL(baseUrl);
+    if (url.protocol !== "https:" || !/(^|\.)hotmart\.com$/i.test(url.hostname)) {
+      return null;
     }
 
-    const handleCheckoutClick = (event: MouseEvent) => {
-      const target = event.target as Element | null;
-      const anchor = target?.closest<HTMLAnchorElement>('a[href*="pay.hotmart.com"]');
-      if (!anchor) return;
+    Object.entries(tracking).forEach(([key, value]) => {
+      if (value && isTrackingKey(key) && !url.searchParams.has(key)) {
+        url.searchParams.set(key, value);
+      }
+    });
 
-      const checkoutUrl = new URL(anchor.href);
-      appendTrackedUtms(checkoutUrl);
-      anchor.href = checkoutUrl.toString();
+    return url.toString();
+  } catch {
+    return null;
+  }
+}
 
-      window.dataLayer?.push({ event: "checkout_iniciado", product: "precifica_mix" });
-      window.gtag?.("event", "checkout_iniciado", { product: "precifica_mix" });
-      window.fbq?.("track", "InitiateCheckout", { content_name: "Precifica Mix", value: 37, currency: "BRL" });
-    };
+export function SalesTrackingProvider() {
+  useEffect(() => {
+    captureTrackingParams();
 
-    document.addEventListener("click", handleCheckoutClick);
-    return () => document.removeEventListener("click", handleCheckoutClick);
+    if (!window.__precificaSalesTrackingInitialized) {
+      window.__precificaSalesTrackingInitialized = true;
+
+      const trackingMode = process.env.NEXT_PUBLIC_TRACKING_MODE || "gtm";
+      const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+      const ga4Id = process.env.NEXT_PUBLIC_GA4_ID;
+      const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+      const utmifyPixelId = process.env.NEXT_PUBLIC_UTMIFY_PIXEL_ID;
+
+      if (trackingMode === "gtm" && gtmId) initializeGtm(gtmId);
+      if (trackingMode === "direct") {
+        if (ga4Id) initializeGa4(ga4Id);
+        if (metaPixelId) initializeMetaPixel(metaPixelId);
+      }
+      if (utmifyPixelId) initializeUtmify(utmifyPixelId);
+    }
+
+    sendPageView();
   }, []);
 
+  return null;
+}
+
+type TrackedCheckoutLinkProps = Omit<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  "href" | "onClick"
+> & {
+  baseUrl: string;
+  children: ReactNode;
+};
+
+export function TrackedCheckoutLink({
+  baseUrl,
+  children,
+  ...props
+}: TrackedCheckoutLinkProps) {
+  function handleClick(event: MouseEvent<HTMLAnchorElement>) {
+    event.preventDefault();
+
+    const latestTracking = getTrackingParams();
+    // Usa o href atual para preservar parâmetros que o script oficial da UTMify
+    // possa ter acrescentado e, depois, garante todos os parâmetros capturados.
+    const checkoutUrl = buildCheckoutUrl(event.currentTarget.href || baseUrl, latestTracking);
+    if (!checkoutUrl) return;
+    if (!trackCheckoutStarted(latestTracking)) return;
+
+    window.location.assign(checkoutUrl);
+  }
+
   return (
-    <>
-      {gtmId ? (
-        <>
-          <Script id="gtm-loader" strategy="afterInteractive">
-            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`}
-          </Script>
-          <noscript>
-            <iframe
-              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
-              height="0"
-              width="0"
-              style={{ display: "none", visibility: "hidden" }}
-              title="Google Tag Manager"
-            />
-          </noscript>
-        </>
-      ) : null}
-
-      {ga4Id ? (
-        <>
-          <Script src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} strategy="afterInteractive" />
-          <Script id="ga4-config" strategy="afterInteractive">
-            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${ga4Id}',{send_page_view:true});`}
-          </Script>
-        </>
-      ) : null}
-
-      {metaPixelId ? (
-        <Script id="meta-pixel" strategy="afterInteractive">
-          {`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${metaPixelId}');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Precifica Mix',value:37,currency:'BRL'});`}
-        </Script>
-      ) : null}
-    </>
+    <a {...props} href={baseUrl} onClick={handleClick}>
+      {children}
+    </a>
   );
 }

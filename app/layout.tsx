@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Tracking } from "./tracking";
+import { SalesTrackingProvider } from "./tracking";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,12 +53,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+  const trackingMode = process.env.NEXT_PUBLIC_TRACKING_MODE || "gtm";
+
   return (
     <html lang="pt-BR">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Tracking />
+        {trackingMode === "gtm" && gtmId ? (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${encodeURIComponent(gtmId)}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+              title="Google Tag Manager"
+            />
+          </noscript>
+        ) : null}
+        <SalesTrackingProvider />
         {children}
       </body>
     </html>
