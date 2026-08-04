@@ -39,7 +39,7 @@ function CheckIcon() {
 
 function ProductMockup() {
   return (
-    <div className="product-stage" aria-label="Demonstração visual do Precifica Mix">
+    <div className="product-stage" aria-label="Exemplo de precificação automática no Precifica Mix">
       <div className="glow glow-one" />
       <div className="glow glow-two" />
       <div className="browser-shell">
@@ -51,41 +51,60 @@ function ProductMockup() {
           <aside className="app-sidebar">
             <div className="mini-brand"><b>P</b><span>Precifica<span>Mix</span></span></div>
             {['Visão Geral', 'Insumos', 'Produtos', 'Precificação', 'Estoque'].map((item, index) => (
-              <div className={`menu-item ${index === 0 ? 'active' : ''}`} key={item}>
+              <div className={`menu-item ${index === 3 ? 'active' : ''}`} key={item}>
                 <i aria-hidden="true" />{item}
               </div>
             ))}
           </aside>
           <div className="app-content">
             <div className="app-heading">
-              <div><small>VISÃO GERAL</small><strong>Boa tarde, seu negócio está saudável.</strong></div>
-              <span>Food Service</span>
+              <div><small>PRECIFICAÇÃO INTELIGENTE</small><strong>Açaí completo 500 ml</strong></div>
+              <span>Canal: iFood</span>
             </div>
-            <div className="guide-card">
-              <strong>Guia de primeiros passos</strong>
-              <div className="guide-steps">
-                <span><b>1</b>Cadastrar insumos</span>
-                <span><b>2</b>Montar produtos</span>
-                <span><b>3</b>Conferir preço</span>
+            <div className="pricing-metrics">
+              <div>
+                <small>CUSTO DA RECEITA</small>
+                <b>R$ 8,42</b>
+                <em>Ingredientes calculados</em>
+              </div>
+              <div>
+                <small>EMBALAGEM + PERDAS</small>
+                <b>R$ 1,58</b>
+                <em>Custos incluídos</em>
+              </div>
+              <div className="fee-metric">
+                <small>TAXA DO IFOOD</small>
+                <b>17%</b>
+                <em>R$ 5,08 por venda</em>
               </div>
             </div>
-            <div className="metric-grid">
-              <div><small>FATURAMENTO ESTIMADO</small><b>R$ 48.750</b><em>↗ 12%</em></div>
-              <div><small>CUSTO MÉDIO DO CARDÁPIO</small><b>28,6%</b><em>Saudável</em></div>
-              <div><small>POTENCIAL DE GANHO</small><b>R$ 3.250</b><em>Este mês</em></div>
+            <div className="pricing-workspace">
+              <div className="calculation-list">
+                <div className="calculation-title">
+                  <span>Composição automática do preço</span>
+                  <small>ATUALIZADO AGORA</small>
+                </div>
+                <div><span>Custo do produto</span><b>R$ 8,42</b></div>
+                <div><span>Embalagem e perdas</span><b>R$ 1,58</b></div>
+                <div><span>Taxa do canal (17%)</span><b>R$ 5,08</b></div>
+                <div><span>Lucro planejado</span><b>R$ 8,97</b></div>
+              </div>
+              <div className="pricing-result-card">
+                <small>PREÇO RECOMENDADO NO IFOOD</small>
+                <strong>R$ 29,90</strong>
+                <span><b>✓</b> Margem líquida de 30%</span>
+                <div><small>PREÇO NO BALCÃO</small><b>R$ 24,90</b></div>
+              </div>
             </div>
-            <div className="chart-card">
-              <div><small>MARGEM DOS PRODUTOS</small><strong>Veja onde seu lucro está</strong></div>
-              <div className="bars" aria-hidden="true"><i/><i/><i/><i/><i/><i/></div>
-            </div>
+            <div className="automatic-message"><span>↻</span> Alterou o custo de um insumo? O sistema recalcula todos os preços automaticamente.</div>
           </div>
         </div>
       </div>
       <div className="floating-card floating-cost">
-        <span>Custo exato</span><strong>R$ 8,42</strong><small>calculado automaticamente</small>
+        <span>Custo exato</span><strong>R$ 8,42</strong><small>ficha técnica calculada</small>
       </div>
       <div className="floating-card floating-price">
-        <span>Preço recomendado</span><strong>R$ 24,90</strong><small>com sua margem desejada</small>
+        <span>Preço no iFood</span><strong>R$ 29,90</strong><small>taxa de 17% já incluída</small>
       </div>
     </div>
   );
@@ -245,26 +264,28 @@ export default function Home() {
       </header>
 
       <section className="hero">
-        <div className="container hero-grid">
+        <div className="container hero-stack">
           <div className="hero-copy">
-            <div className="eyebrow"><span>✓</span> PARA QUEM VENDE ALIMENTOS</div>
-            <h1>Seu cardápio vende.<br />Mas ele realmente <em>dá lucro?</em></h1>
+            <div className="eyebrow"><span>✓</span> PRECIFICAÇÃO INTELIGENTE PARA FOOD SERVICE</div>
+            <h1>Descubra o preço certo de cada produto — <em>já com custos, taxas e lucro.</em></h1>
             <p className="hero-lead">
-              Descubra o custo exato de cada produto, monte fichas técnicas e encontre o preço ideal —
-              mesmo que você não entenda nada de finanças.
+              O Precifica Mix calcula sua ficha técnica e mostra quanto cobrar no balcão, iFood,
+              99Food e cartão para você parar de vender sem saber o que realmente sobra.
             </p>
             <div className="hero-benefits">
-              <span><CheckIcon /> Sem planilhas complicadas</span>
-              <span><CheckIcon /> Insumos já pré-cadastrados</span>
-              <span><CheckIcon /> Pagamento único</span>
+              <span><CheckIcon /> Custo por ingrediente</span>
+              <span><CheckIcon /> Taxas de cada canal</span>
+              <span><CheckIcon /> Margem e lucro real</span>
             </div>
+          </div>
+          <ProductMockup />
+          <div className="hero-action">
             <a className="primary-cta" href="#oferta">
-              QUERO PARAR DE PRECIFICAR NO ACHISMO <span>→</span>
-              <small>Oferta especial por tempo limitado</small>
+              QUERO PRECIFICAR MEUS PRODUTOS CERTO <span>→</span>
+              <small>Veja o preço ideal antes de fazer a próxima venda</small>
             </a>
             <p className="microcopy"><span aria-hidden="true">🔒</span> Compra segura · 7 dias de garantia · Sem assinatura</p>
           </div>
-          <ProductMockup />
         </div>
       </section>
 
