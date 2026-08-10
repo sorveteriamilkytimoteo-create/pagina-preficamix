@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { TrackedCheckoutLink } from "./tracking";
 import { RecentSaleNotification } from "./recent-sale-notification";
 
@@ -434,6 +435,83 @@ export default function Home() {
             </article>
           </div>
           <a className="secondary-cta" href="#oferta">QUERO TER MAIS CLAREZA NO MEU NEGÓCIO <span>→</span></a>
+        </div>
+      </section>
+
+      <section className="founders-section section-space" aria-labelledby="founders-title">
+        <div className="container">
+          <div className="founders-grid">
+            <figure className="founders-photo-card">
+              <Image
+                className="founders-photo"
+                src="/fundadores-precifica-mix.webp"
+                alt="Os dois irmãos criadores do Precifica Mix em frente à Sorvetes Milky, onde a solução nasceu"
+                width={1175}
+                height={1339}
+                sizes="(max-width: 980px) 100vw, 52vw"
+              />
+              <figcaption>
+                <strong>Luís e Lucas · Criadores do Precifica Mix</strong>
+                <span>Experiência real + tecnologia aplicada à operação.</span>
+              </figcaption>
+            </figure>
+
+            <div className="founders-copy">
+              <span className="section-kicker">QUEM ESTÁ POR TRÁS DO PRECIFICA MIX</span>
+              <h2 id="founders-title">Criado por quem vive o food service <em>todos os dias.</em></h2>
+              <p>
+                O Precifica Mix nasceu dentro de uma sorveteria real, a partir de um problema que
+                muitos donos de negócios de alimentação conhecem: vender, trabalhar muito e ainda
+                não saber exatamente quanto sobra em cada produto.
+              </p>
+              <p>
+                De um lado, mais de 8 anos de experiência prática em uma rede de sorveterias, com
+                produção, operação, custos, estoque e precificações feitas manualmente. Do outro, a experiência de um gerente
+                de sorveteria e bacharel em Sistemas de Informação, que transformou essa rotina em
+                uma ferramenta simples de usar.
+              </p>
+              <p>
+                Dessa parceria nasceu o Precifica Mix: uma solução direta para transformar contas
+                manuais em fichas técnicas claras, organizar custos e encontrar um preço de venda
+                mais seguro — mesmo para quem não entende de fórmulas ou sistemas complicados.
+              </p>
+              <div className="founders-signature">
+                <span aria-hidden="true">✓</span>
+                <p><strong>Não nasceu apenas da teoria.</strong> Nasceu de problemas que nós mesmos precisávamos resolver.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="real-use-wrap">
+            <div className="real-use-heading">
+              <span className="section-kicker">APLICADO EM OPERAÇÕES REAIS</span>
+              <h3>Da sorveteria à padaria: custos diferentes, a mesma necessidade de clareza.</h3>
+            </div>
+            <div className="real-use-grid">
+              <article className="real-use-card">
+                <div className="real-use-icon" aria-hidden="true">🍨</div>
+                <div>
+                  <span>VALIDAÇÃO NA OPERAÇÃO</span>
+                  <h4>Sorvetes Milky · Timóteo/MG</h4>
+                  <p>
+                    A rotina da sorveteria mostrou na prática a importância de reunir ingredientes,
+                    porções, embalagens, adicionais e taxas de cada canal antes de definir o preço.
+                  </p>
+                </div>
+              </article>
+              <article className="real-use-card">
+                <div className="real-use-icon" aria-hidden="true">🥖</div>
+                <div>
+                  <span>APLICAÇÃO EM NEGÓCIO FAMILIAR</span>
+                  <h4>Padaria familiar</h4>
+                  <p>
+                    Em produtos com vários ingredientes e rendimentos, a ficha técnica organiza o
+                    custo de produção e ajuda a chegar a um preço de venda mais seguro.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
         </div>
       </section>
 
