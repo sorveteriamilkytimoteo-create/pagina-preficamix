@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { TrackedCheckoutLink } from "./tracking";
 import { RecentSaleNotification } from "./recent-sale-notification";
+import { HotmartSalesAgent } from "./hotmart-sales-agent";
 
 const CHECKOUT_URL =
   process.env.NEXT_PUBLIC_HOTMART_CHECKOUT_URL ||
@@ -603,6 +604,7 @@ export default function Home() {
           <div><span>🔒 Ambiente seguro</span><a href="https://wa.me/5531983238881" target="_blank" rel="noreferrer">Suporte</a></div>
         </div>
       </footer>
+      <HotmartSalesAgent />
       <RecentSaleNotification />
     </main>
   );

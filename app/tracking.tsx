@@ -89,6 +89,24 @@ export function getTrackingParams() {
   return captureTrackingParams();
 }
 
+export function trackSalesAgentOpened() {
+  const tracking = getTrackingParams();
+
+  pushDataLayerEvent("assistente_hotmart_aberto", {
+    produto: "precifica_mix",
+    canal: "whatsapp",
+    ...tracking,
+  });
+
+  if ((process.env.NEXT_PUBLIC_TRACKING_MODE || "gtm") === "direct") {
+    window.gtag?.("event", "assistente_hotmart_aberto", {
+      produto: "precifica_mix",
+      canal: "whatsapp",
+      ...tracking,
+    });
+  }
+}
+
 function addScript(
   id: string,
   src: string,
