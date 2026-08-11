@@ -225,8 +225,10 @@ function trackCheckoutStarted(tracking: TrackingParams) {
 // Mantém compatibilidade com versões anteriores da página que ainda possuem
 // o componente hotmart-sales-agent.tsx no repositório publicado.
 export function trackSalesAgentOpened(
-  tracking: TrackingParams = getTrackingParams(),
+  _event?: unknown,
 ) {
+  void _event;
+  const tracking = getTrackingParams();
   pushDataLayerEvent("sales_agent_opened", {
     produto: "precifica_mix",
     content_name: "Precifica Mix",
