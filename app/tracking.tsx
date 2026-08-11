@@ -222,6 +222,34 @@ function trackCheckoutStarted(tracking: TrackingParams) {
   return true;
 }
 
+// Mantém compatibilidade com versões anteriores da página que ainda possuem
+// o componente hotmart-sales-agent.tsx no repositório publicado.
+export function trackSalesAgentOpened(
+  tracking: TrackingParams = getTrackingParams(),
+) {
+  pushDataLayerEvent("sales_agent_opened", {
+    produto: "precifica_mix",
+    content_name: "Precifica Mix",
+    value: 47,
+    currency: "BRL",
+    ...tracking,
+  });
+
+  if ((process.env.NEXT_PUBLIC_TRACKING_MODE || "gtm") === "direct") {
+    window.gtag?.("event", "sales_agent_opened", {
+      produto: "precifica_mix",
+      value: 47,
+      currency: "BRL",
+      ...tracking,
+    });
+    window.fbq?.("trackCustom", "SalesAgentOpened", {
+      content_name: "Precifica Mix",
+      value: 47,
+      currency: "BRL",
+    });
+  }
+}
+
 export function buildCheckoutUrl(baseUrl: string, tracking: TrackingParams) {
   try {
     const url = new URL(baseUrl);
