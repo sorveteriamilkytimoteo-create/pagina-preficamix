@@ -38,7 +38,7 @@ export function HotmartSalesAgent() {
     <div
       ref={containerRef}
       id="hotmart-widget"
-      onClickCapture={trackSalesAgentOpened}
+onClickCapture={() => trackSalesAgentOpened()}
       aria-label="Tirar uma dúvida sobre o Precifica Mix pelo WhatsApp"
     >
       <Script id="hotmart-sales-agent-script" src={WIDGET_SCRIPT} strategy="afterInteractive" />
