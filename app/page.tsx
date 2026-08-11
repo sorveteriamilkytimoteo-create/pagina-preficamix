@@ -17,7 +17,7 @@ const softwareSchema = {
     "Ferramenta de precificação, fichas técnicas e controle de estoque para negócios de food service.",
   offers: {
     "@type": "Offer",
-    price: "37.00",
+    price: "47.00",
     priceCurrency: "BRL",
     url: CHECKOUT_URL,
   },
@@ -552,7 +552,7 @@ export default function Home() {
             <div className="price-card">
               <div className="limited-badge">PAGAMENTO ÚNICO</div>
               <p>De <s>R$ 97,00</s> por:</p>
-              <div className="price"><span>R$</span><strong>37</strong><small>,00</small></div>
+              <div className="price"><span>R$</span><strong>47</strong><small>,00</small></div>
               <div className="one-time"><span>✓</span><div><strong>Sem assinatura</strong><small>Acesso completo ao Precifica Mix</small></div></div>
               <TrackedCheckoutLink className="buy-button" baseUrl={CHECKOUT_URL}>
                 QUERO ACESSAR AGORA <span>→</span>

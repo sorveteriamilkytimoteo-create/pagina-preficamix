@@ -165,7 +165,7 @@ function sendPageView() {
   pushDataLayerEvent("view_content", {
     content_name: "Precifica Mix",
     content_category: "Food Service",
-    value: 37,
+    value: 47,
     currency: "BRL",
     meta_event_name: "ViewContent",
     ...tracking,
@@ -183,7 +183,7 @@ function sendPageView() {
     window.fbq?.("track", "ViewContent", {
       content_name: "Precifica Mix",
       content_category: "Food Service",
-      value: 37,
+      value: 47,
       currency: "BRL",
     });
   }
@@ -199,7 +199,7 @@ function trackCheckoutStarted(tracking: TrackingParams) {
   pushDataLayerEvent("checkout_iniciado", {
     produto: "precifica_mix",
     content_name: "Precifica Mix",
-    value: 37,
+    value: 47,
     currency: "BRL",
     meta_event_name: "InitiateCheckout",
     ...tracking,
@@ -208,13 +208,13 @@ function trackCheckoutStarted(tracking: TrackingParams) {
   if ((process.env.NEXT_PUBLIC_TRACKING_MODE || "gtm") === "direct") {
     window.gtag?.("event", "checkout_iniciado", {
       produto: "precifica_mix",
-      value: 37,
+      value: 47,
       currency: "BRL",
       ...tracking,
     });
     window.fbq?.("track", "InitiateCheckout", {
       content_name: "Precifica Mix",
-      value: 37,
+      value: 47,
       currency: "BRL",
     });
   }
