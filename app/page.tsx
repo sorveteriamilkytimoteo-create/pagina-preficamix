@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { TrackedCheckoutLink } from "./tracking";
 import { RecentSaleNotification } from "./recent-sale-notification";
-import { HotmartSalesAgent } from "./hotmart-sales-agent";
+import { DirectWhatsAppButton } from "./direct-whatsapp-button";
 
 const CHECKOUT_URL =
   process.env.NEXT_PUBLIC_HOTMART_CHECKOUT_URL ||
@@ -554,16 +554,6 @@ export default function Home() {
               <p>De <s>R$ 97,00</s> por:</p>
               <div className="price"><span>R$</span><strong>37</strong><small>,00</small></div>
               <div className="one-time"><span>✓</span><div><strong>Sem assinatura</strong><small>Acesso completo ao Precifica Mix</small></div></div>
-              <div className="offer-reassurance" aria-label="Benefícios adicionais da oferta">
-                <div>
-                  <span aria-hidden="true">✦</span>
-                  <div><strong>Suporte humanizado</strong><small>Ajuda real quando você precisar</small></div>
-                </div>
-                <div>
-                  <span aria-hidden="true">50</span>
-                  <div><strong>50 insumos pré-cadastrados</strong><small>Bônus para começar mais rápido</small></div>
-                </div>
-              </div>
               <TrackedCheckoutLink className="buy-button" baseUrl={CHECKOUT_URL}>
                 QUERO ACESSAR AGORA <span>→</span>
                 <small>Acesso após a confirmação</small>
@@ -614,8 +604,8 @@ export default function Home() {
           <div><span>🔒 Ambiente seguro</span><a href="https://wa.me/5531983238881" target="_blank" rel="noreferrer">Suporte</a></div>
         </div>
       </footer>
-      <HotmartSalesAgent />
       <RecentSaleNotification />
+      <DirectWhatsAppButton />
     </main>
   );
 }

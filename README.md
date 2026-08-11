@@ -12,6 +12,7 @@ Cadastre em **Settings → Environment Variables** para Production, Preview e De
 - `NEXT_PUBLIC_META_PIXEL_ID`
 - `NEXT_PUBLIC_UTMIFY_PIXEL_ID`
 - `NEXT_PUBLIC_HOTMART_CHECKOUT_URL`
+- `NEXT_PUBLIC_IMPLANTACAO_VIP_CHECKOUT_URL`: checkout comum da Implantação VIP enquanto o Widget do Funil de Vendas não estiver instalado.
 - `NEXT_PUBLIC_SITE_URL`
 - `NEXT_PUBLIC_RECENT_SALES_JSON` (opcional): lista de compras reais exibidas na notificação. Use somente primeiro nome, cidade e UF.
 
@@ -35,6 +36,19 @@ Também são carregados os dois scripts da UTMify usados no diagnóstico Precifi
 - `https://cdn.utmify.com.br/scripts/utms/latest.js`
 
 Eventos enviados ao `dataLayer`: `page_view`, `view_content` e `checkout_iniciado`.
+
+## Pós-compra e Implantação VIP
+
+- `/obrigado`: oferta pós-compra da Implantação VIP por R$ 49,90.
+- `/obrigado/final`: confirmação final e orientação de acesso.
+
+A Implantação VIP foi cadastrada como **Serviços Online**, por isso deve ser usada como upsell no **Funil de Vendas** da Hotmart, não como Order Bump. Depois de criar o funil, copie o código do Widget gerado pela Hotmart e substitua o bloco identificado por `hotmart-funnel-widget-slot` em `app/obrigado/upsell-actions.tsx`. O Widget é o responsável pelos botões de aceite e recusa em um clique.
+
+Enquanto o Widget ainda não estiver instalado, o botão usa `NEXT_PUBLIC_IMPLANTACAO_VIP_CHECKOUT_URL`. Se a variável também não existir, o visitante é direcionado ao WhatsApp direto da equipe.
+
+Eventos adicionais enviados ao `dataLayer`: `upsell_visualizado`, `upsell_aceito`, `upsell_recusado` e `whatsapp_direto_clicado`.
+
+O botão flutuante da página de vendas abre o atendimento direto no número `(31) 98323-8881` após 35 segundos e não utiliza a IA de atendimento da Hotmart.
 
 ## Teste local
 
