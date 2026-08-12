@@ -40,8 +40,15 @@ function CheckIcon() {
 }
 
 function ProductMockup() {
+  const ingredients = [
+    ["Pão brioche", "R$ 1,42"],
+    ["Carne 160g", "R$ 4,96"],
+    ["Queijo + molho", "R$ 2,18"],
+    ["Embalagem", "R$ 1,15"],
+  ];
+
   return (
-    <div className="product-stage" aria-label="Fluxo de precificação automática do Precifica Mix">
+    <div className="product-stage" aria-label="Precificação detalhada de um hambúrguer artesanal no Precifica Mix">
       <div className="glow glow-one" />
       <div className="glow glow-two" />
       <div className="browser-shell">
@@ -60,32 +67,41 @@ function ProductMockup() {
           </aside>
           <div className="app-content">
             <div className="app-heading">
-              <div><small>PRECIFICAÇÃO AUTOMÁTICA</small><strong>Açaí completo 500 ml</strong></div>
-              <span>Exemplo de cálculo</span>
+              <div><small>PRECIFICAÇÃO INTELIGENTE</small><strong>Hambúrguer artesanal</strong></div>
+              <span>PRONTO EM MENOS DE 5 MIN</span>
             </div>
-            <div className="pricing-flow">
-              <div className="flow-card recipe-card">
-                <small>1 · FICHA TÉCNICA</small>
-                <strong>Ingredientes + embalagem</strong>
-                <span>Custo calculado</span>
-                <b>R$ 8,42</b>
+
+            <div className="burger-pricing-grid">
+              <div className="ingredient-panel">
+                <div className="panel-title"><span>1</span><div><small>FICHA TÉCNICA</small><strong>Ingredientes e custos</strong></div></div>
+                <div className="ingredient-list">
+                  {ingredients.map(([name, price]) => (
+                    <div key={name}><span>{name}</span><b>{price}</b></div>
+                  ))}
+                </div>
               </div>
-              <span className="flow-arrow" aria-hidden="true">→</span>
-              <div className="flow-card fees-card">
-                <small>2 · TAXAS DO CANAL</small>
-                <div className="fee-alert"><span>iFood</span><b>17%</b></div>
-                <div className="fee-row"><span>99Food</span><b>Configurável</b></div>
-                <div className="fee-row"><span>Cartão e outros</span><b>Configurável</b></div>
-              </div>
-              <span className="flow-arrow" aria-hidden="true">→</span>
-              <div className="flow-card result-card">
-                <small>3 · PREÇO CERTO</small>
-                <strong>Margem preservada</strong>
-                <div><span>Balcão</span><b>R$ 24,90</b></div>
-                <div className="ifood-result"><span>iFood</span><b>R$ 29,90</b></div>
+
+              <div className="channel-panel">
+                <div className="panel-title"><span>2</span><div><small>PREÇO POR CANAL</small><strong>Taxas consideradas</strong></div></div>
+                <div className="channel-result counter-result">
+                  <div><small>BALCÃO</small><strong>R$ 24,90</strong></div>
+                  <span><small>CMV</small><b>39%</b></span>
+                </div>
+                <div className="channel-result ifood-channel">
+                  <div><small>IFOOD · TAXA 17%</small><strong>R$ 29,90</strong></div>
+                  <span><small>CMV</small><b>32,5%</b></span>
+                </div>
               </div>
             </div>
-            <div className="automatic-note"><span>✓</span> O sistema calcula o preço de cada canal automaticamente.</div>
+
+            <div className="pricing-summary">
+              <div><small>CUSTO TOTAL</small><strong>R$ 9,71</strong></div>
+              <span>+</span>
+              <div><small>MARGEM DESEJADA</small><strong>35%</strong></div>
+              <span>=</span>
+              <div className="recommended-price"><small>PREÇO RECOMENDADO</small><strong>R$ 24,90</strong></div>
+            </div>
+            <div className="automatic-note"><span>✓</span> CMV calculado e margem protegida em cada canal.</div>
           </div>
         </div>
       </div>
@@ -252,7 +268,7 @@ export default function Home() {
             <div className="eyebrow"><span>!</span> PREJUÍZO ESCONDIDO NO CARDÁPIO</div>
             <h1>Você pode vender muito e ainda <em>perder dinheiro</em> em cada pedido.</h1>
             <p className="hero-lead">
-              O Precifica Mix calcula custos, taxas dos canais e o preço certo para sobrar lucro.
+              Em menos de 5 minutos, transforme ingredientes, CMV e taxas no preço certo para vender com margem.
             </p>
           </div>
           <ProductMockup />
