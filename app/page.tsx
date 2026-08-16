@@ -389,7 +389,7 @@ export default function Home() {
         <div className="container library-grid">
           <div className="library-visual">
             <div className="library-window">
-              <div className="library-header"><div><span>▱</span><strong>Biblioteca de sugestões</strong></div><small>41 modelos disponíveis</small></div>
+              <div className="library-header"><div><span>▱</span><strong>Biblioteca de sugestões</strong></div><small>50 modelos disponíveis</small></div>
               <div className="library-search">Buscar insumo, embalagem ou ingrediente...</div>
               <div className="library-tags"><span>Ingredientes</span><span>Embalagens</span><span>Complementos</span></div>
               <div className="library-items">
@@ -403,7 +403,7 @@ export default function Home() {
             <span className="section-kicker">COMECE SEM PERDER HORAS</span>
             <h2>Insumos pré-cadastrados para facilitar sua configuração.</h2>
             <p>Em vez de começar com uma tela vazia, você recebe modelos comuns do food service e só precisa adaptar preço, embalagem e fornecedor para a sua realidade.</p>
-            <div className="speed-stat"><strong>41+</strong><span>modelos iniciais para acelerar os primeiros cadastros</span></div>
+            <div className="speed-stat"><strong>50</strong><span>insumos para importar e acelerar os primeiros cadastros</span></div>
             <p className="reassurance"><CheckIcon /> Você mantém liberdade total para editar e criar seus próprios itens.</p>
           </div>
         </div>
@@ -560,16 +560,21 @@ export default function Home() {
             </ul>
           </div>
           <div className="offer-card-column">
-            <div className="mobile-offer-benefits" aria-label="Principais benefícios da oferta">
-              <div><span>▤</span><strong>Ficha técnica</strong></div>
-              <div><span>%</span><strong>Taxas por canal</strong></div>
-              <div><span>▣</span><strong>Controle de estoque</strong></div>
+            <div className="mobile-offer-headline">
+              <span>OFERTA ESPECIAL</span>
+              <h2>Pare de precificar no achismo.</h2>
+              <p>Calcule custos, taxas e o preço certo de cada canal em uma ferramenta simples.</p>
             </div>
             <div className="price-card">
               <div className="limited-badge">PAGAMENTO ÚNICO</div>
               <p>De <s>R$ 97,00</s> por:</p>
               <div className="price"><span>R$</span><strong>47</strong><small>,00</small></div>
-              <div className="one-time"><span>✓</span><div><strong>Sem assinatura</strong><small>Acesso completo ao Precifica Mix</small></div></div>
+              <div className="one-time"><span>✓</span><div><strong>Pagamento único</strong><small>Acesso completo ao Precifica Mix</small></div></div>
+              <div className="mobile-offer-benefits" aria-label="Benefícios incluídos">
+                <div><span>50+</span><strong>Importe 50 insumos</strong></div>
+                <div><span>●</span><strong>Suporte humanizado</strong></div>
+                <div><span>▣</span><strong>Controle de estoque</strong></div>
+              </div>
               <TrackedCheckoutLink className="buy-button" baseUrl={CHECKOUT_URL}>
                 QUERO ACESSAR AGORA <span>→</span>
                 <small>Acesso após a confirmação</small>
