@@ -12,21 +12,17 @@ const FIRST_APPEARANCE_MS = 5_000;
 const DISPLAY_DURATION_MS = 6_000;
 const REPEAT_INTERVAL_MS = 22_000;
 
-const anonymousSale: RecentSale = {
-  name: "Novo cliente",
-};
-
 function sanitize(value: unknown, maxLength: number) {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : undefined;
 }
 
 function getConfiguredSales(): RecentSale[] {
   const raw = process.env.NEXT_PUBLIC_RECENT_SALES_JSON;
-  if (!raw) return [anonymousSale];
+  if (!raw) return [];
 
   try {
     const parsed = JSON.parse(raw) as unknown;
-    if (!Array.isArray(parsed)) return [anonymousSale];
+    if (!Array.isArray(parsed)) return [];
 
     const sales = parsed
       .slice(0, 20)
@@ -42,9 +38,9 @@ function getConfiguredSales(): RecentSale[] {
       })
       .filter((sale): sale is RecentSale => Boolean(sale));
 
-    return sales.length ? sales : [anonymousSale];
+    return sales;
   } catch {
-    return [anonymousSale];
+    return [];
   }
 }
 
@@ -55,6 +51,8 @@ export function RecentSaleNotification() {
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
+    if (sales.length === 0) return;
+
     let hideTimer: ReturnType<typeof setTimeout> | undefined;
 
     const showNotification = () => {
@@ -84,7 +82,8 @@ export function RecentSaleNotification() {
   if (dismissed) return null;
 
   const sale = sales[activeIndex];
-  const location = [sale.city, sale.state].filter(Boolean).join(" — ");
+  if (!sale) return null;
+  const location = [sale.city, sale.state].filter(Boolean).join(", ");
 
   return (
     <aside

@@ -1,6 +1,27 @@
-# Precifica Mix — Página de vendas
+# Precifica Mix: Página de vendas
 
 Página de vendas em Next.js 15 com encaminhamento completo de UTMs para o checkout da Hotmart.
+
+## Experiência de conversão
+
+A página inclui:
+
+- primeira dobra específica para a dor de açaíterias;
+- demonstração interativa focada em açaíteria, usando telas reais do sistema;
+- simulador educativo do custo mensal de um erro de precificação;
+- comparação entre preço de balcão e preço de aplicativo;
+- navegação fixa no desktop e oferta fixa no celular;
+- animações leves com respeito à preferência de redução de movimento;
+- prova de origem baseada na operação real dos fundadores.
+
+Os valores das demonstrações são exemplos educativos e não prometem resultado financeiro.
+
+## Prova social de clientes
+
+Use somente conversas e depoimentos reais, com autorização. Antes de publicar prints do WhatsApp,
+oculte telefone, sobrenome, foto e qualquer dado pessoal que o cliente não tenha autorizado.
+Não crie mensagens ou notificações fictícias. As notificações de compra só aparecem quando
+`NEXT_PUBLIC_RECENT_SALES_JSON` contém compras reais configuradas.
 
 ## Variáveis de ambiente na Vercel
 
@@ -24,7 +45,7 @@ Exemplo de notificação com dados reais:
 NEXT_PUBLIC_RECENT_SALES_JSON=[{"name":"Ana","city":"Timóteo","state":"MG"},{"name":"Carlos","city":"Ipatinga","state":"MG"}]
 ```
 
-Sem essa variável, a página exibe uma confirmação anonimizada. A primeira notificação aparece após 5 segundos e as próximas a cada 22 segundos.
+Sem essa variável, nenhuma notificação de compra é exibida. A página nunca cria confirmações fictícias. Quando compras reais são configuradas, a primeira notificação aparece após 5 segundos e as próximas a cada 22 segundos.
 
 ## Rastreamento do checkout
 

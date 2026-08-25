@@ -2,10 +2,14 @@ import Image from "next/image";
 import { TrackedCheckoutLink } from "./tracking";
 import { RecentSaleNotification } from "./recent-sale-notification";
 import { DirectWhatsAppButton } from "./direct-whatsapp-button";
+import {
+  InteractivePricingDemo,
+  LossCalculator,
+  RevealController,
+} from "./conversion-experience";
 
 const CHECKOUT_URL =
-  process.env.NEXT_PUBLIC_HOTMART_CHECKOUT_URL ||
-  "https://pay.hotmart.com/D106845746F?checkoutMode=10";
+  "https://pay.hotmart.com/D106845746F?off=dbag2uwj&checkoutMode=10";
 
 const softwareSchema = {
   "@context": "https://schema.org",
@@ -14,10 +18,10 @@ const softwareSchema = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
-    "Ferramenta de precificação, fichas técnicas e controle de estoque para negócios de food service.",
+    "Ferramenta de precificação, fichas técnicas e controle de estoque para açaíterias.",
   offers: {
     "@type": "Offer",
-    price: "47.00",
+    price: "27.00",
     priceCurrency: "BRL",
     url: CHECKOUT_URL,
   },
@@ -25,7 +29,7 @@ const softwareSchema = {
 
 function Brand() {
   return (
-    <a className="brand" href="#topo" aria-label="Precifica Mix — início">
+    <a className="brand" href="#topo" aria-label="Precifica Mix, início">
       <span className="brand-mark" aria-hidden="true">P</span>
       <span className="brand-copy">
         <strong>Precifica<span>Mix</span></strong>
@@ -41,14 +45,20 @@ function CheckIcon() {
 
 function ProductMockup() {
   const ingredients = [
-    ["Pão brioche", "R$ 1,42"],
-    ["Carne 160g", "R$ 4,96"],
-    ["Queijo + molho", "R$ 2,18"],
-    ["Embalagem", "R$ 1,15"],
+    ["Copo 700 ml", "1 un", "R$ 0,40"],
+    ["Tampa 700 ml", "1 un", "R$ 0,20"],
+    ["Colher Descartável", "1 un", "R$ 0,14"],
+    ["Guardanapo", "3 un", "R$ 0,03"],
+    ["Sacola", "1 un", "R$ 0,05"],
+    ["Creme de Açaí", "563 g", "R$ 7,29"],
+    ["Leite em Pó", "90 g", "R$ 1,44"],
+    ["Creme de Ovomaltine", "100 g", "R$ 3,60"],
+    ["Banana", "50 g", "R$ 0,40"],
+    ["Morango", "50 g", "R$ 2,63"],
   ];
 
   return (
-    <div className="product-stage" aria-label="Precificação detalhada de um hambúrguer artesanal no Precifica Mix">
+    <div className="product-stage" aria-label="Ficha técnica real e precificação do Açaí 700 ml no Precifica Mix">
       <div className="glow glow-one" />
       <div className="glow glow-two" />
       <div className="browser-shell">
@@ -60,48 +70,50 @@ function ProductMockup() {
           <aside className="app-sidebar">
             <div className="mini-brand"><b>P</b><span>Precifica<span>Mix</span></span></div>
             {['Visão Geral', 'Insumos', 'Produtos', 'Precificação', 'Estoque'].map((item, index) => (
-              <div className={`menu-item ${index === 0 ? 'active' : ''}`} key={item}>
+              <div className={`menu-item ${index === 3 ? 'active' : ''}`} key={item}>
                 <i aria-hidden="true" />{item}
               </div>
             ))}
           </aside>
           <div className="app-content">
             <div className="app-heading">
-              <div><small>PRECIFICAÇÃO INTELIGENTE</small><strong>Hambúrguer artesanal</strong></div>
-              <span>PRONTO EM MENOS DE 5 MIN</span>
+              <div><small>FICHA TÉCNICA</small><strong>Açaí 700 ml personalizado</strong></div>
+              <span>CUSTO REAL CALCULADO</span>
             </div>
 
             <div className="burger-pricing-grid">
               <div className="ingredient-panel">
-                <div className="panel-title"><span>1</span><div><small>FICHA TÉCNICA</small><strong>Ingredientes e custos</strong></div></div>
+                <div className="panel-title"><span>1</span><div><small>COMPOSIÇÃO DO PRODUTO</small><strong>Ingredientes, complementos e embalagens</strong></div></div>
                 <div className="ingredient-list">
-                  {ingredients.map(([name, price]) => (
-                    <div key={name}><span>{name}</span><b>{price}</b></div>
+                  {ingredients.map(([name, qty, price]) => (
+                    <div key={name}><span>{name}<small style={{display:'block', opacity:.6, fontSize:'9px'}}>{qty}</small></span><b>{price}</b></div>
                   ))}
                 </div>
               </div>
 
               <div className="channel-panel">
-                <div className="panel-title"><span>2</span><div><small>PREÇO POR CANAL</small><strong>Taxas consideradas</strong></div></div>
+                <div className="panel-title"><span>2</span><div><small>RESULTADOS POR CANAL</small><strong>Preço recomendado</strong></div></div>
                 <div className="channel-result counter-result">
-                  <div><small>BALCÃO</small><strong>R$ 24,90</strong></div>
-                  <span><small>CMV</small><b>39%</b></span>
+                  <div><small>BALCÃO · LOJA FÍSICA</small><strong>R$ 30,99</strong></div>
+                  <span><small>MARGEM REAL</small><b>40,83%</b></span>
+                  <span><small>CMV</small><b>52,17%</b></span>
                 </div>
                 <div className="channel-result ifood-channel">
-                  <div><small>IFOOD · TAXA 17%</small><strong>R$ 29,90</strong></div>
-                  <span><small>CMV</small><b>32,5%</b></span>
+                  <div><small>IFOOD · DELIVERY APP</small><strong>R$ 39,99</strong></div>
+                  <span><small>MARGEM REAL</small><b>40,38%</b></span>
+                  <span><small>CMV</small><b>40,43%</b></span>
                 </div>
               </div>
             </div>
 
             <div className="pricing-summary">
-              <div><small>CUSTO TOTAL</small><strong>R$ 9,71</strong></div>
-              <span>+</span>
-              <div><small>MARGEM DESEJADA</small><strong>35%</strong></div>
-              <span>=</span>
-              <div className="recommended-price"><small>PREÇO RECOMENDADO</small><strong>R$ 24,90</strong></div>
+              <div><small>CUSTO DA RECEITA</small><strong>R$ 16,17</strong></div>
+              <span>→</span>
+              <div><small>BALCÃO</small><strong>R$ 30,99</strong></div>
+              <span>→</span>
+              <div className="recommended-price"><small>IFOOD / DELIVERY APP</small><strong>R$ 39,99</strong></div>
             </div>
-            <div className="automatic-note"><span>✓</span> CMV calculado e margem protegida em cada canal.</div>
+            <div className="automatic-note"><span>✓</span> + R$ 9,00 no iFood para compensar taxas e comissões.</div>
           </div>
         </div>
       </div>
@@ -161,12 +173,12 @@ const features = [
 ];
 
 const audiences = [
-  "Restaurantes e lanchonetes",
-  "Hamburguerias e pizzarias",
-  "Confeitarias e padarias",
-  "Marmitarias e delivery",
-  "Sorveterias e açaiterias",
-  "Bares, cafés e cozinhas",
+  "Açaí tradicional e montado",
+  "Copos personalizados",
+  "Combos e promoções",
+  "Adicionais e complementos",
+  "Balcão e retirada",
+  "iFood e delivery próprio",
 ];
 
 const salesChannels = [
@@ -203,11 +215,11 @@ const faqs = [
   },
   {
     question: "Os insumos já vêm cadastrados?",
-    answer: "Você recebe uma biblioteca inicial com insumos e modelos comuns de food service para acelerar a configuração. Depois, pode ajustar preços, embalagens e itens conforme a realidade do seu negócio.",
+    answer: "Você recebe uma biblioteca inicial com ingredientes, complementos e embalagens comuns em açaíterias para acelerar a configuração. Depois, pode ajustar preços e criar seus próprios itens.",
   },
   {
-    question: "Funciona para qualquer negócio de alimentação?",
-    answer: "Sim. A estrutura foi pensada para restaurantes, lanchonetes, hamburguerias, pizzarias, confeitarias, padarias, delivery, sorveterias, açaiterias e outros negócios de food service.",
+    question: "Funciona para todos os produtos da minha açaíteria?",
+    answer: "Sim. Você pode criar fichas para copos de diferentes tamanhos, açaís personalizados, adicionais, combos e outros produtos, usando os ingredientes, porções e embalagens reais da sua operação.",
   },
   {
     question: "Consigo considerar taxas do iFood e da máquina de cartão?",
@@ -230,19 +242,19 @@ const faqs = [
 function MiniPricingScreen() {
   return (
     <div className="pricing-screen" aria-label="Exemplo de cálculo de preço no Precifica Mix">
-      <div className="screen-title"><span>$</span><div><small>PRECIFICAÇÃO INTELIGENTE</small><strong>Hambúrguer artesanal</strong></div></div>
+      <div className="screen-title"><span>$</span><div><small>PRECIFICAÇÃO INTELIGENTE</small><strong>Açaí 700 ml personalizado</strong></div></div>
       <div className="ingredient-lines">
-        <div><span>Pão brioche</span><b>R$ 1,42</b></div>
-        <div><span>Carne 160g</span><b>R$ 4,96</b></div>
-        <div><span>Queijo + molho</span><b>R$ 2,18</b></div>
-        <div><span>Embalagem</span><b>R$ 1,15</b></div>
+        <div><span>Creme de açaí 563 g</span><b>R$ 7,29</b></div>
+        <div><span>Complementos</span><b>R$ 8,07</b></div>
+        <div><span>Copo, tampa e colher</span><b>R$ 0,74</b></div>
+        <div><span>Guardanapo e sacola</span><b>R$ 0,07</b></div>
       </div>
       <div className="pricing-total">
-        <div><small>CUSTO TOTAL</small><strong>R$ 9,71</strong></div>
+        <div><small>CUSTO TOTAL</small><strong>R$ 16,17</strong></div>
         <span>+</span>
-        <div><small>MARGEM DESEJADA</small><strong>35%</strong></div>
+        <div><small>MARGEM DESEJADA</small><strong>40%</strong></div>
         <span>=</span>
-        <div className="recommended"><small>PREÇO RECOMENDADO</small><strong>R$ 24,90</strong></div>
+        <div className="recommended"><small>PREÇO NO BALCÃO</small><strong>R$ 30,99</strong></div>
       </div>
       <div className="healthy-message"><span>✓</span> Este produto está dentro da margem desejada.</div>
     </div>
@@ -259,40 +271,56 @@ export default function Home() {
       <header className="site-header">
         <div className="container header-inner">
           <Brand />
+          <nav className="header-nav" aria-label="Navegação principal">
+            <a href="#demonstracao">Como funciona</a>
+            <a href="#prova-real">Quem criou</a>
+            <a href="#duvidas">Dúvidas</a>
+          </nav>
+          <a className="header-cta" href="#oferta">PRECIFICAR MEU AÇAÍ <span>→</span></a>
         </div>
       </header>
 
-      <section className="hero">
+      <section className="hero" data-reveal>
         <div className="container hero-grid">
-          <div className="hero-copy">
-            <div className="eyebrow"><span>!</span> PREJUÍZO ESCONDIDO NO CARDÁPIO</div>
-            <h1>Você pode vender muito e ainda <em>perder dinheiro</em> em cada pedido.</h1>
-            <p className="hero-lead">
-              Em menos de 5 minutos, transforme ingredientes, CMV e taxas no preço certo para vender com margem.
-            </p>
+          <div className="hero-left">
+            <div className="hero-copy">
+              <div className="eyebrow"><span>!</span> PREJUÍZO ESCONDIDO EM CADA COPO</div>
+              <h1>Você pode vender muito açaí e ainda <em>perder dinheiro</em> em cada copo.</h1>
+              <p className="hero-lead">
+                Descubra o custo real de cada copo e calcule, em poucos minutos, o preço certo para balcão e iFood. O sistema considera ingredientes, embalagens, taxas e margem.
+              </p>
+            </div>
+            <div className="hero-action">
+              <div className="hero-benefits">
+                <span><CheckIcon /> Custo por copo</span>
+                <span><CheckIcon /> Taxas por canal</span>
+                <span><CheckIcon /> Margem e preço ideal</span>
+              </div>
+              <a className="primary-cta" href="#oferta">
+                QUERO SABER SE MEU AÇAÍ DÁ LUCRO <span>→</span>
+                <small>Pagamento único · acesso completo · sem assinatura</small>
+              </a>
+              <p className="microcopy"><span aria-hidden="true">🔒</span> Compra segura pela Hotmart · garantia de 7 dias</p>
+            </div>
           </div>
           <ProductMockup />
-          <div className="hero-action">
-            <div className="hero-benefits">
-              <span><CheckIcon /> Custo real</span>
-              <span><CheckIcon /> Taxas por canal</span>
-              <span><CheckIcon /> Margem e preço ideal</span>
-            </div>
-            <a className="primary-cta" href="#oferta">
-              QUERO PRECIFICAR CERTO <span>→</span>
-              <small>Pagamento único · sem assinatura</small>
-            </a>
-            <p className="microcopy"><span aria-hidden="true">🔒</span> Compra segura · garantia de 7 dias</p>
-          </div>
         </div>
       </section>
 
       <section className="trust-strip" aria-label="Benefícios de compra">
         <div className="container trust-grid">
           <div><b>✓</b><span><strong>Pagamento único</strong><small>Sem mensalidade ou fidelidade</small></span></div>
-          <div><b>✓</b><span><strong>Acesso imediato</strong><small>Comece assim que confirmar</small></span></div>
+          <div><b className="client-count">+200</b><span><strong>Mais de 200 clientes</strong><small>Utilizando e aumentando seus lucros</small></span></div>
           <div><b>✓</b><span><strong>Garantia de 7 dias</strong><small>Você testa sem correr risco</small></span></div>
-          <div><b>✓</b><span><strong>Feito para food service</strong><small>Da cozinha ao cardápio</small></span></div>
+          <div><b>✓</b><span><strong>Feito para açaíterias</strong><small>Do insumo ao preço do copo</small></span></div>
+        </div>
+      </section>
+
+      <section className="credibility-bar" aria-label="Por que confiar no Precifica Mix">
+        <div className="container credibility-grid">
+          <div><strong>Operação real</strong><span>Criado dentro de uma sorveteria</span></div>
+          <div><strong>Não é planilha</strong><span>Sistema guiado e fácil de usar</span></div>
+          <div><strong>Preço por canal</strong><span>Balcão, delivery e aplicativos</span></div>
         </div>
       </section>
 
@@ -321,6 +349,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <InteractivePricingDemo />
+
+      <LossCalculator />
 
       <section className="solution-section section-space">
         <div className="container solution-grid">
@@ -402,7 +434,7 @@ export default function Home() {
           <div className="library-copy">
             <span className="section-kicker">COMECE SEM PERDER HORAS</span>
             <h2>Insumos pré-cadastrados para facilitar sua configuração.</h2>
-            <p>Em vez de começar com uma tela vazia, você recebe modelos comuns do food service e só precisa adaptar preço, embalagem e fornecedor para a sua realidade.</p>
+            <p>Em vez de começar com uma tela vazia, você recebe modelos de ingredientes, complementos e embalagens comuns em açaíterias e só precisa adaptar os preços para a sua realidade.</p>
             <div className="speed-stat"><strong>50</strong><span>insumos para importar e acelerar os primeiros cadastros</span></div>
             <p className="reassurance"><CheckIcon /> Você mantém liberdade total para editar e criar seus próprios itens.</p>
           </div>
@@ -455,7 +487,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="founders-section section-space" aria-labelledby="founders-title">
+      <section id="prova-real" className="founders-section section-space" aria-labelledby="founders-title" data-reveal>
         <div className="container">
           <div className="founders-grid">
             <figure className="founders-photo-card">
@@ -475,7 +507,7 @@ export default function Home() {
 
             <div className="founders-copy">
               <span className="section-kicker">QUEM ESTÁ POR TRÁS DO PRECIFICA MIX</span>
-              <h2 id="founders-title">Criado por quem vive o food service <em>todos os dias.</em></h2>
+              <h2 id="founders-title">Criado por quem vive a rotina de uma açaíteria <em>todos os dias.</em></h2>
               <p>
                 O Precifica Mix nasceu dentro de uma sorveteria real, a partir de um problema que
                 muitos donos de negócios de alimentação conhecem: vender, trabalhar muito e ainda
@@ -490,7 +522,7 @@ export default function Home() {
               <p>
                 Dessa parceria nasceu o Precifica Mix: uma solução direta para transformar contas
                 manuais em fichas técnicas claras, organizar custos e encontrar um preço de venda
-                mais seguro — mesmo para quem não entende de fórmulas ou sistemas complicados.
+                mais seguro, mesmo para quem não entende de fórmulas ou sistemas complicados.
               </p>
               <div className="founders-signature">
                 <span aria-hidden="true">✓</span>
@@ -502,7 +534,7 @@ export default function Home() {
           <div className="real-use-wrap">
             <div className="real-use-heading">
               <span className="section-kicker">APLICADO EM OPERAÇÕES REAIS</span>
-              <h3>Da sorveteria à padaria: custos diferentes, a mesma necessidade de clareza.</h3>
+              <h3>Do ingrediente ao preço por canal: uma demonstração baseada na operação real.</h3>
             </div>
             <div className="real-use-grid">
               <article className="real-use-card">
@@ -517,13 +549,13 @@ export default function Home() {
                 </div>
               </article>
               <article className="real-use-card">
-                <div className="real-use-icon" aria-hidden="true">🥖</div>
+                <div className="real-use-icon" aria-hidden="true">🥣</div>
                 <div>
-                  <span>APLICAÇÃO EM NEGÓCIO FAMILIAR</span>
-                  <h4>Padaria familiar</h4>
+                  <span>EXEMPLO DE FICHA TÉCNICA</span>
+                  <h4>Açaí 700 ml personalizado</h4>
                   <p>
-                    Em produtos com vários ingredientes e rendimentos, a ficha técnica organiza o
-                    custo de produção e ajuda a chegar a um preço de venda mais seguro.
+                    Em copos personalizados, cada adicional e cada embalagem alteram o custo. A ficha
+                    técnica reúne tudo para evitar que o produto mais vendido esconda prejuízo.
                   </p>
                 </div>
               </article>
@@ -535,9 +567,9 @@ export default function Home() {
       <section className="audience-section section-space">
         <div className="container audience-grid">
           <div>
-            <span className="section-kicker">FEITO PARA FOOD SERVICE</span>
-            <h2>Se você transforma ingredientes em produtos, o Precifica Mix é para você.</h2>
-            <p>Não importa se está começando ou se já vende todos os dias. O importante é parar de depender de suposições para definir seus preços.</p>
+            <span className="section-kicker">FEITO PARA AÇAÍTERIAS</span>
+            <h2>Do copo tradicional ao personalizado: enxergue o custo de cada montagem.</h2>
+            <p>Não importa se está começando ou se já vende todos os dias. O importante é considerar cada adicional, embalagem e taxa antes de definir o preço.</p>
           </div>
           <div className="audience-list">
             {audiences.map((audience) => <div key={audience}><CheckIcon />{audience}</div>)}
@@ -549,35 +581,42 @@ export default function Home() {
         <div className="container offer-wrap">
           <div className="offer-copy">
             <Brand />
-            <span className="section-kicker">OFERTA ESPECIAL</span>
-            <h2>Pare de precificar no achismo.</h2>
-            <p>Calcule custos, taxas e o preço certo de cada canal em uma ferramenta simples.</p>
+            <span className="section-kicker">NÃO É MAIS UM PACOTE DE PLANILHAS</span>
+            <h2>Uma ferramenta pronta para usar, sem depender de fórmulas ou aulas longas.</h2>
+            <p>Cadastre seus produtos, simule cenários e encontre o preço certo. O Precifica Mix faz as contas e organiza as informações para você.</p>
             <ul className="offer-benefits">
-              <li><CheckIcon /> Custos e fichas técnicas</li>
-              <li><CheckIcon /> Taxas do iFood, 99Food e cartão</li>
-              <li><CheckIcon /> Preço certo por canal</li>
+              <li><CheckIcon /> Precificação correta por canal</li>
+              <li><CheckIcon /> Simulação de vendas e lucro</li>
+              <li><CheckIcon /> Fichas técnicas completas</li>
               <li><CheckIcon /> Controle de estoque</li>
+              <li><CheckIcon /> Mais de 50 insumos para importar</li>
+              <li><CheckIcon /> Suporte humanizado</li>
             </ul>
           </div>
           <div className="offer-card-column">
             <div className="mobile-offer-headline">
-              <span>OFERTA ESPECIAL</span>
-              <h2>Pare de precificar no achismo.</h2>
-              <p>Calcule custos, taxas e o preço certo de cada canal em uma ferramenta simples.</p>
+              <span>NÃO É MAIS UM PACOTE DE PLANILHAS</span>
+              <h2>Uma ferramenta pronta para precificar melhor.</h2>
+              <p>O sistema organiza as informações e faz os cálculos para você.</p>
             </div>
             <div className="price-card">
-              <div className="limited-badge">PAGAMENTO ÚNICO</div>
-              <p>De <s>R$ 97,00</s> por:</p>
-              <div className="price"><span>R$</span><strong>47</strong><small>,00</small></div>
-              <div className="one-time"><span>✓</span><div><strong>Pagamento único</strong><small>Acesso completo ao Precifica Mix</small></div></div>
-              <div className="mobile-offer-benefits" aria-label="Benefícios incluídos">
-                <div><span>50+</span><strong>Importe 50 insumos</strong></div>
-                <div><span>●</span><strong>Suporte humanizado</strong></div>
-                <div><span>▣</span><strong>Controle de estoque</strong></div>
+              <div className="limited-badge">OFERTA DE LANÇAMENTO · POR TEMPO LIMITADO</div>
+              <p>De <s>R$ 97,00</s> por apenas:</p>
+              <div className="price"><span>R$</span><strong>27</strong><small>,00</small></div>
+              <div className="discount-callout"><strong>72% DE DESCONTO</strong><span>Economize R$ 70 nesta condição promocional</span></div>
+              <div className="one-time"><span>✓</span><div><strong>Pagamento único e sem assinatura</strong><small>Acesso completo ao Precifica Mix</small></div></div>
+              <div className="offer-inclusions" aria-label="Tudo o que está incluído na oferta">
+                <p>TUDO ISSO ESTÁ INCLUÍDO:</p>
+                <div><span>✓</span><strong>Precificação correta dos produtos</strong></div>
+                <div><span>✓</span><strong>Preço diferente por canal de venda</strong></div>
+                <div><span>✓</span><strong>Simulação de vendas e impacto no lucro</strong></div>
+                <div><span>✓</span><strong>Fichas técnicas e controle de estoque</strong></div>
+                <div><span>✓</span><strong>Mais de 50 insumos para importar</strong></div>
+                <div><span>✓</span><strong>Suporte humanizado</strong></div>
               </div>
               <TrackedCheckoutLink className="buy-button" baseUrl={CHECKOUT_URL}>
                 QUERO ACESSAR AGORA <span>→</span>
-                <small>Acesso após a confirmação</small>
+                <small>Pagamento único · acesso após a confirmação</small>
               </TrackedCheckoutLink>
               <div className="purchase-protection">
                 <div className="secure-purchase"><span>🔒</span><div><strong>COMPRA SEGURA</strong><small>Pagamento protegido pela Hotmart</small></div></div>
@@ -588,7 +627,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="faq-section section-space">
+      <section id="duvidas" className="faq-section section-space" data-reveal>
         <div className="container faq-wrap">
           <div className="faq-heading">
             <span className="section-kicker">PERGUNTAS FREQUENTES</span>
@@ -612,7 +651,7 @@ export default function Home() {
           <div>
             <span className="section-kicker">SEU PRÓXIMO PREÇO PODE SER UMA DECISÃO MELHOR</span>
             <h2>Pare de precificar no achismo.</h2>
-            <p>Organize custos, fichas técnicas e estoque em uma ferramenta criada para a rotina real do food service.</p>
+            <p>Organize ingredientes, adicionais, embalagens, fichas técnicas e estoque em uma ferramenta criada para a rotina real de açaíterias.</p>
           </div>
           <a href="#oferta">QUERO CONHECER O PRECIFICA MIX <span>→</span></a>
         </div>
@@ -627,6 +666,7 @@ export default function Home() {
       </footer>
       <RecentSaleNotification />
       <DirectWhatsAppButton />
+      <RevealController />
     </main>
   );
 }

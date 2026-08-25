@@ -14,33 +14,30 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Precifica Mix | Precificação inteligente para Food Service",
+  title: "Precifica Mix | Precificação inteligente para açaíterias",
   description:
-    "Calcule custos, monte fichas técnicas, controle o estoque e encontre o preço ideal dos seus produtos com o Precifica Mix.",
+    "Calcule ingredientes, adicionais, embalagens e taxas para encontrar o preço ideal dos produtos da sua açaíteria.",
   keywords: [
-    "precificação food service",
-    "ficha técnica restaurante",
-    "calcular preço de venda",
-    "controle de estoque food service",
+    "precificação açaí",
+    "ficha técnica açaíteria",
+    "calcular preço do açaí",
+    "controle de estoque açaíteria",
     "Precifica Mix",
   ],
   robots: { index: true, follow: true },
   openGraph: {
     title: "Precifica Mix | Pare de precificar no achismo",
     description:
-      "Descubra o custo exato dos produtos, monte fichas técnicas e encontre o preço ideal do seu cardápio.",
+      "Descubra o custo exato de cada copo, considere adicionais, embalagens e taxas e encontre o preço ideal do seu açaí.",
     type: "website",
     locale: "pt_BR",
     siteName: "Precifica Mix",
   },
   twitter: {
     card: "summary",
-    title: "Precifica Mix | Precificação inteligente para Food Service",
+    title: "Precifica Mix | Precificação inteligente para açaíterias",
     description:
-      "Custos, fichas técnicas, precificação e estoque em uma ferramenta simples para food service.",
-  },
-  other: {
-    "codex-preview": "development",
+      "Custos, fichas técnicas, precificação e estoque em uma ferramenta simples para açaíterias.",
   },
   icons: {
     icon: "/favicon.svg",
