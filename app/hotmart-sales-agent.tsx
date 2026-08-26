@@ -8,8 +8,7 @@ import {
   trackSalesAgentOpened,
 } from "./tracking";
 
-const AGENT_CHECKOUT_URL =
-  "https://pay.hotmart.com/D106845746F?off=dbag2uwj&checkoutMode=10";
+const AGENT_CHECKOUT_URL = "https://pay.hotmart.com/D106845746F?off=dbag2uwj";
 const WIDGET_SCRIPT = "https://cta-widget-user-form.hp.hotmart.com/widget/widget.iife.js";
 
 export function HotmartSalesAgent() {

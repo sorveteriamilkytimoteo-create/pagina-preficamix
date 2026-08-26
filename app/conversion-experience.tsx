@@ -1,20 +1,25 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { TrackedCheckoutLink } from "./tracking";
 
 type DemoScreen = "canais" | "taxa" | "impacto";
 
-const acaiIngredients = [
-  "Creme de açaí",
-  "Leite em pó",
-  "Creme de Ovomaltine",
-  "Banana",
-  "Morango",
-  "Copo e tampa",
-  "Colher e guardanapo",
-  "Sacola",
+const burgerIngredients = [
+  "Pão brioche",
+  "Carne de 160 g",
+  "Queijo",
+  "Molho",
+  "Bacon",
+  "Salada",
+  "Embalagem",
+  "Guardanapo e sacola",
+];
+
+const burgerCostLines = [
+  ["Pão brioche", "1 un", "R$ 1,42"],
+  ["Carne artesanal", "160 g", "R$ 4,96"],
+  ["Queijo e molho", "1 porção", "R$ 2,18"],
+  ["Embalagem", "1 un", "R$ 1,15"],
 ];
 
 const money = new Intl.NumberFormat("pt-BR", {
@@ -57,49 +62,27 @@ export function InteractivePricingDemo() {
   const [screen, setScreen] = useState<DemoScreen>("canais");
   const isChannels = screen === "canais";
   const isFee = screen === "taxa";
-  const screenContent = {
-    canais: {
-      src: "/tela-precificacao-acai-canais.png",
-      alt: "Tela real do Precifica Mix mostrando custo da ficha e preços do Açaí 700 ml para balcão e iFood",
-      width: 1365,
-      height: 692,
-      label: "Balcão + iFood",
-      eyebrow: "O QUE ESTA TELA MOSTRA",
-      explanation: "O mesmo produto custa R$ 16,17, mas precisa de R$ 30,99 no balcão e R$ 39,99 no iFood para proteger a margem das taxas.",
-    },
-    taxa: {
-      src: "/tela-precificacao-acai-taxa-ifood.png",
-      alt: "Tela real do Precifica Mix mostrando a taxa de 17,19 por cento do iFood e o preço recomendado para preservar a margem",
-      width: 1129,
-      height: 567,
-      label: "Taxas do iFood",
-      eyebrow: "POR QUE O PREÇO MUDA NO IFOOD",
-      explanation: "Os R$ 39,99 não são um aumento no achismo: o sistema considera 17,19% de taxas e comissões para manter a mesma margem líquida de 40% do balcão.",
-    },
-    impacto: {
-      src: "/tela-precificacao-acai-impacto.png",
-      alt: "Tela real do Precifica Mix mostrando comparação entre preço atual, preço recomendado e impacto financeiro",
-      width: 1365,
-      height: 707,
-      label: "Impacto no lucro",
-      eyebrow: "POR QUE ISSO IMPORTA",
-      explanation: "Ao comparar R$ 25,99 com o preço recomendado de R$ 30,99, o sistema mostra um potencial de R$ 465 a mais por mês em 100 vendas.",
-    },
-  }[screen];
+  const label = screen === "canais" ? "Ficha e canais" : screen === "taxa" ? "Taxas do iFood" : "Impacto no lucro";
+  const eyebrow = screen === "canais" ? "O QUE ESTA TELA MOSTRA" : screen === "taxa" ? "POR QUE O PREÇO MUDA NO IFOOD" : "POR QUE ISSO IMPORTA";
+  const explanation = screen === "canais"
+    ? "O hambúrguer custa R$ 9,71, mas precisa de preços diferentes no balcão e no iFood para preservar a margem da operação."
+    : screen === "taxa"
+      ? "Os R$ 29,90 no iFood consideram a taxa de 17%. O sistema calcula essa diferença para evitar que a comissão saia do seu lucro."
+      : "Se o preço atual for R$ 21,90, uma correção de R$ 3 representa R$ 300 a mais em 100 vendas mensais.";
 
   return (
     <section className="interactive-demo section-space" id="demonstracao" data-reveal>
       <div className="container">
         <div className="section-heading centered">
-          <span className="section-kicker">PRECIFICAÇÃO REAL DE UM AÇAÍ</span>
+          <span className="section-kicker">PRECIFICAÇÃO DE UM HAMBÚRGUER NA PRÁTICA</span>
           <h2>Veja exatamente o que o sistema considera <em>antes de sugerir o preço.</em></h2>
           <p>
-            Esta é uma tela real do Precifica Mix calculando o Açaí 700 ml. O sistema reúne a ficha
-            técnica, as taxas de cada canal e mostra o impacto financeiro do ajuste.
+            O exemplo abaixo calcula um hambúrguer artesanal. O sistema reúne a ficha técnica,
+            considera as taxas de cada canal e mostra o impacto financeiro do ajuste.
           </p>
         </div>
 
-        <div className="demo-step-tabs" role="tablist" aria-label="Etapas da precificação do açaí">
+        <div className="demo-step-tabs" role="tablist" aria-label="Etapas da precificação do hambúrguer">
           <button
             type="button"
             role="tab"
@@ -132,42 +115,94 @@ export function InteractivePricingDemo() {
         <div className="real-screen-shell" key={screen}>
           <div className="real-screen-topbar">
             <div><i /><i /><i /></div>
-            <span>Tela real do Precifica Mix</span>
-            <b>{screenContent.label}</b>
+            <span>Demonstração do Precifica Mix</span>
+            <b>{label}</b>
           </div>
-          <Image
-            src={screenContent.src}
-            alt={screenContent.alt}
-            width={screenContent.width}
-            height={screenContent.height}
-            sizes="(max-width: 900px) 100vw, 1120px"
-            priority
-            unoptimized
-          />
+          <div className="burger-demo-screen">
+            <div className="burger-demo-heading">
+              <div><span>FICHA TÉCNICA</span><strong>Hambúrguer artesanal 160 g</strong></div>
+              <small>CUSTO REAL CALCULADO</small>
+            </div>
+
+            {screen === "canais" && (
+              <div className="burger-demo-grid">
+                <div className="burger-cost-card">
+                  <div className="burger-card-title"><b>1</b><span><small>COMPOSIÇÃO DO PRODUTO</small><strong>Ingredientes e embalagem</strong></span></div>
+                  <div className="burger-cost-lines">
+                    {burgerCostLines.map(([name, quantity, cost]) => (
+                      <div key={name}><span>{name}<small>{quantity}</small></span><b>{cost}</b></div>
+                    ))}
+                  </div>
+                  <div className="burger-cost-total"><span>CUSTO TOTAL DA FICHA</span><strong>R$ 9,71</strong></div>
+                </div>
+                <div className="burger-channel-card">
+                  <div className="burger-card-title"><b>2</b><span><small>RESULTADO POR CANAL</small><strong>Preço recomendado</strong></span></div>
+                  <article><small>BALCÃO E RETIRADA</small><strong>R$ 24,90</strong><div><span>CMV</span><b>39%</b></div></article>
+                  <article className="ifood-demo-result"><small>IFOOD E DELIVERY APP</small><strong>R$ 29,90</strong><div><span>Taxa considerada</span><b>17%</b></div></article>
+                </div>
+              </div>
+            )}
+
+            {screen === "taxa" && (
+              <div className="fee-demo-grid">
+                <div className="fee-parameters">
+                  <span>PARÂMETROS DO IFOOD</span>
+                  <div><small>Custo da ficha</small><strong>R$ 9,71</strong></div>
+                  <div><small>Margem desejada</small><strong>35%</strong></div>
+                  <div className="fee-highlight"><small>Taxas e comissões</small><strong>17%</strong></div>
+                  <div><small>Embalagem extra</small><strong>R$ 0,00</strong></div>
+                </div>
+                <div className="fee-result-card">
+                  <span>PREÇO POR CANAL</span>
+                  <div><small>Balcão</small><strong>R$ 24,90</strong></div>
+                  <b>+ R$ 5,00</b>
+                  <div className="fee-recommended"><small>iFood</small><strong>R$ 29,90</strong></div>
+                  <p>Diferença calculada para compensar a taxa do canal.</p>
+                </div>
+              </div>
+            )}
+
+            {screen === "impacto" && (
+              <div className="impact-demo-grid">
+                <div className="impact-input-card">
+                  <span>COMPARADOR DE PREÇO</span>
+                  <div><small>Preço praticado atualmente</small><strong>R$ 21,90</strong></div>
+                  <div><small>Vendas mensais do produto</small><strong>100</strong></div>
+                  <p>O sistema compara o preço atual com o valor recomendado.</p>
+                </div>
+                <div className="impact-result-card">
+                  <span>IMPACTO FINANCEIRO</span>
+                  <div className="impact-price-change"><small>Atual</small><strong>R$ 21,90</strong><b>→</b><small>Recomendado</small><strong>R$ 24,90</strong></div>
+                  <div className="impact-values"><article><small>ACRÉSCIMO MENSAL</small><strong>R$ 300</strong></article><article><small>IMPACTO ANUAL</small><strong>R$ 3.600</strong></article></div>
+                  <p>Simulação baseada em uma diferença de R$ 3 por venda.</p>
+                </div>
+              </div>
+            )}
+          </div>
           <div className="screen-explanation">
-            <span>{screenContent.eyebrow}</span>
-            <p>{screenContent.explanation}</p>
+            <span>{eyebrow}</span>
+            <p>{explanation}</p>
           </div>
         </div>
 
         <div className="proof-metrics" aria-label="Resultados da precificação demonstrada">
-          <div><span>CUSTO DA FICHA</span><strong>R$ 16,17</strong></div>
-          <div><span>PREÇO NO BALCÃO</span><strong>R$ 30,99</strong></div>
-          <div><span>PREÇO NO IFOOD</span><strong>R$ 39,99</strong></div>
-          <div><span>DIFERENÇA PROTEGIDA</span><strong>+ R$ 9,00</strong></div>
+          <div><span>CUSTO DA FICHA</span><strong>R$ 9,71</strong></div>
+          <div><span>PREÇO NO BALCÃO</span><strong>R$ 24,90</strong></div>
+          <div><span>PREÇO NO IFOOD</span><strong>R$ 29,90</strong></div>
+          <div><span>DIFERENÇA PROTEGIDA</span><strong>+ R$ 5,00</strong></div>
         </div>
 
         <div className="ingredient-proof">
           <div className="ingredient-proof-copy">
             <span className="section-kicker">NADA FICA FORA DA CONTA</span>
-            <h3>Todos os insumos da ficha entram no custo do copo.</h3>
+            <h3>Todos os insumos entram no custo do hambúrguer.</h3>
             <p>
               Ingredientes, complementos e embalagens são calculados pela quantidade realmente usada.
               Isso inclui os itens baratos que normalmente são esquecidos.
             </p>
           </div>
           <div className="ingredient-chips">
-            {acaiIngredients.map((ingredient) => (
+            {burgerIngredients.map((ingredient) => (
               <span key={ingredient}><b>✓</b>{ingredient}</span>
             ))}
           </div>

@@ -14,30 +14,30 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Precifica Mix | Precificação inteligente para açaíterias",
+  title: "Precifica Mix | Precificação inteligente para hamburguerias",
   description:
-    "Calcule ingredientes, adicionais, embalagens e taxas para encontrar o preço ideal dos produtos da sua açaíteria.",
+    "Calcule ingredientes, adicionais, embalagens e taxas para encontrar o preço ideal dos produtos da sua hamburgueria.",
   keywords: [
-    "precificação açaí",
-    "ficha técnica açaíteria",
-    "calcular preço do açaí",
-    "controle de estoque açaíteria",
+    "precificação de hambúrguer",
+    "ficha técnica hamburgueria",
+    "calcular preço do hambúrguer",
+    "controle de estoque hamburgueria",
     "Precifica Mix",
   ],
   robots: { index: true, follow: true },
   openGraph: {
     title: "Precifica Mix | Pare de precificar no achismo",
     description:
-      "Descubra o custo exato de cada copo, considere adicionais, embalagens e taxas e encontre o preço ideal do seu açaí.",
+      "Descubra o custo exato de cada lanche, considere adicionais, embalagens e taxas e encontre o preço ideal do seu hambúrguer.",
     type: "website",
     locale: "pt_BR",
     siteName: "Precifica Mix",
   },
   twitter: {
     card: "summary",
-    title: "Precifica Mix | Precificação inteligente para açaíterias",
+    title: "Precifica Mix | Precificação inteligente para hamburguerias",
     description:
-      "Custos, fichas técnicas, precificação e estoque em uma ferramenta simples para açaíterias.",
+      "Custos, fichas técnicas, precificação e estoque em uma ferramenta simples para hamburguerias.",
   },
   icons: {
     icon: "/favicon.svg",

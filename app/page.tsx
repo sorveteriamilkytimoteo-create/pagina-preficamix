@@ -9,6 +9,7 @@ import {
 } from "./conversion-experience";
 
 const CHECKOUT_URL =
+  process.env.NEXT_PUBLIC_HOTMART_CHECKOUT_URL ||
   "https://pay.hotmart.com/D106845746F?off=dbag2uwj&checkoutMode=10";
 
 const softwareSchema = {
@@ -18,7 +19,7 @@ const softwareSchema = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
-    "Ferramenta de precificação, fichas técnicas e controle de estoque para açaíterias.",
+    "Ferramenta de precificação, fichas técnicas e controle de estoque para hamburguerias.",
   offers: {
     "@type": "Offer",
     price: "27.00",
@@ -45,20 +46,15 @@ function CheckIcon() {
 
 function ProductMockup() {
   const ingredients = [
-    ["Copo 700 ml", "1 un", "R$ 0,40"],
-    ["Tampa 700 ml", "1 un", "R$ 0,20"],
-    ["Colher Descartável", "1 un", "R$ 0,14"],
-    ["Guardanapo", "3 un", "R$ 0,03"],
-    ["Sacola", "1 un", "R$ 0,05"],
-    ["Creme de Açaí", "563 g", "R$ 7,29"],
-    ["Leite em Pó", "90 g", "R$ 1,44"],
-    ["Creme de Ovomaltine", "100 g", "R$ 3,60"],
-    ["Banana", "50 g", "R$ 0,40"],
-    ["Morango", "50 g", "R$ 2,63"],
+    ["Pão brioche", "1 un", "R$ 1,42"],
+    ["Carne artesanal", "160 g", "R$ 4,96"],
+    ["Queijo", "2 fatias", "R$ 1,20"],
+    ["Molho da casa", "30 g", "R$ 0,98"],
+    ["Embalagem", "1 un", "R$ 1,15"],
   ];
 
   return (
-    <div className="product-stage" aria-label="Ficha técnica real e precificação do Açaí 700 ml no Precifica Mix">
+    <div className="product-stage" aria-label="Ficha técnica e precificação de um hambúrguer artesanal no Precifica Mix">
       <div className="glow glow-one" />
       <div className="glow glow-two" />
       <div className="browser-shell">
@@ -77,7 +73,7 @@ function ProductMockup() {
           </aside>
           <div className="app-content">
             <div className="app-heading">
-              <div><small>FICHA TÉCNICA</small><strong>Açaí 700 ml personalizado</strong></div>
+              <div><small>FICHA TÉCNICA</small><strong>Hambúrguer artesanal 160 g</strong></div>
               <span>CUSTO REAL CALCULADO</span>
             </div>
 
@@ -94,26 +90,26 @@ function ProductMockup() {
               <div className="channel-panel">
                 <div className="panel-title"><span>2</span><div><small>RESULTADOS POR CANAL</small><strong>Preço recomendado</strong></div></div>
                 <div className="channel-result counter-result">
-                  <div><small>BALCÃO · LOJA FÍSICA</small><strong>R$ 30,99</strong></div>
-                  <span><small>MARGEM REAL</small><b>40,83%</b></span>
-                  <span><small>CMV</small><b>52,17%</b></span>
+                  <div><small>BALCÃO · RETIRADA</small><strong>R$ 24,90</strong></div>
+                  <span><small>MARGEM DESEJADA</small><b>35%</b></span>
+                  <span><small>CMV</small><b>39%</b></span>
                 </div>
                 <div className="channel-result ifood-channel">
-                  <div><small>IFOOD · DELIVERY APP</small><strong>R$ 39,99</strong></div>
-                  <span><small>MARGEM REAL</small><b>40,38%</b></span>
-                  <span><small>CMV</small><b>40,43%</b></span>
+                  <div><small>IFOOD · DELIVERY APP</small><strong>R$ 29,90</strong></div>
+                  <span><small>TAXA CONSIDERADA</small><b>17%</b></span>
+                  <span><small>CMV</small><b>32,5%</b></span>
                 </div>
               </div>
             </div>
 
             <div className="pricing-summary">
-              <div><small>CUSTO DA RECEITA</small><strong>R$ 16,17</strong></div>
+              <div><small>CUSTO DA RECEITA</small><strong>R$ 9,71</strong></div>
               <span>→</span>
-              <div><small>BALCÃO</small><strong>R$ 30,99</strong></div>
+              <div><small>BALCÃO</small><strong>R$ 24,90</strong></div>
               <span>→</span>
-              <div className="recommended-price"><small>IFOOD / DELIVERY APP</small><strong>R$ 39,99</strong></div>
+              <div className="recommended-price"><small>IFOOD / DELIVERY APP</small><strong>R$ 29,90</strong></div>
             </div>
-            <div className="automatic-note"><span>✓</span> + R$ 9,00 no iFood para compensar taxas e comissões.</div>
+            <div className="automatic-note"><span>✓</span> + R$ 5,00 no iFood para compensar taxas e comissões.</div>
           </div>
         </div>
       </div>
@@ -173,10 +169,10 @@ const features = [
 ];
 
 const audiences = [
-  "Açaí tradicional e montado",
-  "Copos personalizados",
+  "Hambúrguer artesanal",
+  "Smash burger e blends",
   "Combos e promoções",
-  "Adicionais e complementos",
+  "Adicionais e molhos",
   "Balcão e retirada",
   "iFood e delivery próprio",
 ];
@@ -215,11 +211,11 @@ const faqs = [
   },
   {
     question: "Os insumos já vêm cadastrados?",
-    answer: "Você recebe uma biblioteca inicial com ingredientes, complementos e embalagens comuns em açaíterias para acelerar a configuração. Depois, pode ajustar preços e criar seus próprios itens.",
+    answer: "Você recebe uma biblioteca inicial com ingredientes e embalagens comuns em hamburguerias para acelerar a configuração. Depois, pode ajustar os preços e criar seus próprios itens.",
   },
   {
-    question: "Funciona para todos os produtos da minha açaíteria?",
-    answer: "Sim. Você pode criar fichas para copos de diferentes tamanhos, açaís personalizados, adicionais, combos e outros produtos, usando os ingredientes, porções e embalagens reais da sua operação.",
+    question: "Funciona para todos os produtos da minha hamburgueria?",
+    answer: "Sim. Você pode criar fichas para hambúrgueres, porções, molhos, adicionais, combos e outros produtos, usando os ingredientes, rendimentos e embalagens reais da sua operação.",
   },
   {
     question: "Consigo considerar taxas do iFood e da máquina de cartão?",
@@ -242,19 +238,19 @@ const faqs = [
 function MiniPricingScreen() {
   return (
     <div className="pricing-screen" aria-label="Exemplo de cálculo de preço no Precifica Mix">
-      <div className="screen-title"><span>$</span><div><small>PRECIFICAÇÃO INTELIGENTE</small><strong>Açaí 700 ml personalizado</strong></div></div>
+      <div className="screen-title"><span>$</span><div><small>PRECIFICAÇÃO INTELIGENTE</small><strong>Hambúrguer artesanal 160 g</strong></div></div>
       <div className="ingredient-lines">
-        <div><span>Creme de açaí 563 g</span><b>R$ 7,29</b></div>
-        <div><span>Complementos</span><b>R$ 8,07</b></div>
-        <div><span>Copo, tampa e colher</span><b>R$ 0,74</b></div>
-        <div><span>Guardanapo e sacola</span><b>R$ 0,07</b></div>
+        <div><span>Pão brioche</span><b>R$ 1,42</b></div>
+        <div><span>Carne artesanal 160 g</span><b>R$ 4,96</b></div>
+        <div><span>Queijo e molho</span><b>R$ 2,18</b></div>
+        <div><span>Embalagem</span><b>R$ 1,15</b></div>
       </div>
       <div className="pricing-total">
-        <div><small>CUSTO TOTAL</small><strong>R$ 16,17</strong></div>
+        <div><small>CUSTO TOTAL</small><strong>R$ 9,71</strong></div>
         <span>+</span>
-        <div><small>MARGEM DESEJADA</small><strong>40%</strong></div>
+        <div><small>MARGEM DESEJADA</small><strong>35%</strong></div>
         <span>=</span>
-        <div className="recommended"><small>PREÇO NO BALCÃO</small><strong>R$ 30,99</strong></div>
+        <div className="recommended"><small>PREÇO NO BALCÃO</small><strong>R$ 24,90</strong></div>
       </div>
       <div className="healthy-message"><span>✓</span> Este produto está dentro da margem desejada.</div>
     </div>
@@ -271,39 +267,30 @@ export default function Home() {
       <header className="site-header">
         <div className="container header-inner">
           <Brand />
-          <nav className="header-nav" aria-label="Navegação principal">
-            <a href="#demonstracao">Como funciona</a>
-            <a href="#prova-real">Quem criou</a>
-            <a href="#duvidas">Dúvidas</a>
-          </nav>
-          <a className="header-cta" href="#oferta">PRECIFICAR MEU AÇAÍ <span>→</span></a>
         </div>
       </header>
 
       <section className="hero" data-reveal>
         <div className="container hero-grid">
-          <div className="hero-left">
-            <div className="hero-copy">
-              <div className="eyebrow"><span>!</span> PREJUÍZO ESCONDIDO EM CADA COPO</div>
-              <h1>Você pode vender muito açaí e ainda <em>perder dinheiro</em> em cada copo.</h1>
-              <p className="hero-lead">
-                Descubra o custo real de cada copo e calcule, em poucos minutos, o preço certo para balcão e iFood. O sistema considera ingredientes, embalagens, taxas e margem.
-              </p>
-            </div>
-            <div className="hero-action">
-              <div className="hero-benefits">
-                <span><CheckIcon /> Custo por copo</span>
-                <span><CheckIcon /> Taxas por canal</span>
-                <span><CheckIcon /> Margem e preço ideal</span>
-              </div>
-              <a className="primary-cta" href="#oferta">
-                QUERO SABER SE MEU AÇAÍ DÁ LUCRO <span>→</span>
-                <small>Pagamento único · acesso completo · sem assinatura</small>
-              </a>
-              <p className="microcopy"><span aria-hidden="true">🔒</span> Compra segura pela Hotmart · garantia de 7 dias</p>
-            </div>
+          <div className="hero-copy">
+            <div className="eyebrow"><span>!</span> PREJUÍZO ESCONDIDO EM CADA LANCHE</div>
+            <h1>Você pode vender muitos hambúrgueres e ainda <em>perder dinheiro</em> em cada pedido.</h1>
+            <p className="hero-lead">
+              Calcule o custo real do seu hambúrguer e descubra o preço certo para balcão e iFood em poucos minutos.
+            </p>
           </div>
           <ProductMockup />
+          <div className="hero-action">
+            <div className="hero-benefits">
+              <span><CheckIcon /> Custo por lanche</span>
+              <span><CheckIcon /> Taxas por canal</span>
+              <span><CheckIcon /> Margem e preço ideal</span>
+            </div>
+            <a className="primary-cta" href="#oferta">
+              QUERO PRECIFICAR MEU HAMBÚRGUER <span>→</span>
+            </a>
+            <p className="microcopy"><span aria-hidden="true">🔒</span> Compra segura pela Hotmart · garantia de 7 dias</p>
+          </div>
         </div>
       </section>
 
@@ -312,13 +299,13 @@ export default function Home() {
           <div><b>✓</b><span><strong>Pagamento único</strong><small>Sem mensalidade ou fidelidade</small></span></div>
           <div><b className="client-count">+200</b><span><strong>Mais de 200 clientes</strong><small>Utilizando e aumentando seus lucros</small></span></div>
           <div><b>✓</b><span><strong>Garantia de 7 dias</strong><small>Você testa sem correr risco</small></span></div>
-          <div><b>✓</b><span><strong>Feito para açaíterias</strong><small>Do insumo ao preço do copo</small></span></div>
+          <div><b>✓</b><span><strong>Feito para hamburguerias</strong><small>Do ingrediente ao preço do lanche</small></span></div>
         </div>
       </section>
 
       <section className="credibility-bar" aria-label="Por que confiar no Precifica Mix">
         <div className="container credibility-grid">
-          <div><strong>Operação real</strong><span>Criado dentro de uma sorveteria</span></div>
+          <div><strong>Operação real</strong><span>Criado por quem vive food service</span></div>
           <div><strong>Não é planilha</strong><span>Sistema guiado e fácil de usar</span></div>
           <div><strong>Preço por canal</strong><span>Balcão, delivery e aplicativos</span></div>
         </div>
@@ -425,8 +412,8 @@ export default function Home() {
               <div className="library-search">Buscar insumo, embalagem ou ingrediente...</div>
               <div className="library-tags"><span>Ingredientes</span><span>Embalagens</span><span>Complementos</span></div>
               <div className="library-items">
-                {['Farinha de trigo', 'Queijo muçarela', 'Leite condensado', 'Copo 500 ml', 'Molho especial', 'Chocolate em pó'].map((item, index) => (
-                  <div key={item}><i>{['FT','QM','LC','CP','ME','CH'][index]}</i><span><strong>{item}</strong><small>Modelo pronto para personalizar</small></span><b>+</b></div>
+                {['Pão brioche', 'Carne bovina', 'Queijo cheddar', 'Bacon', 'Molho especial', 'Embalagem burger'].map((item, index) => (
+                  <div key={item}><i>{['PB','CB','QC','BC','ME','EB'][index]}</i><span><strong>{item}</strong><small>Modelo pronto para personalizar</small></span><b>+</b></div>
                 ))}
               </div>
             </div>
@@ -434,7 +421,7 @@ export default function Home() {
           <div className="library-copy">
             <span className="section-kicker">COMECE SEM PERDER HORAS</span>
             <h2>Insumos pré-cadastrados para facilitar sua configuração.</h2>
-            <p>Em vez de começar com uma tela vazia, você recebe modelos de ingredientes, complementos e embalagens comuns em açaíterias e só precisa adaptar os preços para a sua realidade.</p>
+            <p>Em vez de começar com uma tela vazia, você recebe modelos de ingredientes, molhos e embalagens comuns em hamburguerias e só precisa adaptar os preços para a sua realidade.</p>
             <div className="speed-stat"><strong>50</strong><span>insumos para importar e acelerar os primeiros cadastros</span></div>
             <p className="reassurance"><CheckIcon /> Você mantém liberdade total para editar e criar seus próprios itens.</p>
           </div>
@@ -507,16 +494,16 @@ export default function Home() {
 
             <div className="founders-copy">
               <span className="section-kicker">QUEM ESTÁ POR TRÁS DO PRECIFICA MIX</span>
-              <h2 id="founders-title">Criado por quem vive a rotina de uma açaíteria <em>todos os dias.</em></h2>
+              <h2 id="founders-title">Criado por quem vive a rotina de food service <em>todos os dias.</em></h2>
               <p>
                 O Precifica Mix nasceu dentro de uma sorveteria real, a partir de um problema que
                 muitos donos de negócios de alimentação conhecem: vender, trabalhar muito e ainda
                 não saber exatamente quanto sobra em cada produto.
               </p>
               <p>
-                De um lado, mais de 8 anos de experiência prática em uma rede de sorveterias, com
+                De um lado, mais de 8 anos de experiência prática em operações de alimentação, com
                 produção, operação, custos, estoque e precificações feitas manualmente. Do outro, a experiência de um gerente
-                de sorveteria e bacharel em Sistemas de Informação, que transformou essa rotina em
+                de food service e bacharel em Sistemas de Informação, que transformou essa rotina em
                 uma ferramenta simples de usar.
               </p>
               <p>
@@ -549,13 +536,13 @@ export default function Home() {
                 </div>
               </article>
               <article className="real-use-card">
-                <div className="real-use-icon" aria-hidden="true">🥣</div>
+                <div className="real-use-icon" aria-hidden="true">🍔</div>
                 <div>
                   <span>EXEMPLO DE FICHA TÉCNICA</span>
-                  <h4>Açaí 700 ml personalizado</h4>
+                  <h4>Hambúrguer artesanal 160 g</h4>
                   <p>
-                    Em copos personalizados, cada adicional e cada embalagem alteram o custo. A ficha
-                    técnica reúne tudo para evitar que o produto mais vendido esconda prejuízo.
+                    No hambúrguer, cada ingrediente, adicional e embalagem altera o custo. A ficha
+                    técnica reúne tudo para evitar que o lanche mais vendido esconda prejuízo.
                   </p>
                 </div>
               </article>
@@ -567,9 +554,9 @@ export default function Home() {
       <section className="audience-section section-space">
         <div className="container audience-grid">
           <div>
-            <span className="section-kicker">FEITO PARA AÇAÍTERIAS</span>
-            <h2>Do copo tradicional ao personalizado: enxergue o custo de cada montagem.</h2>
-            <p>Não importa se está começando ou se já vende todos os dias. O importante é considerar cada adicional, embalagem e taxa antes de definir o preço.</p>
+            <span className="section-kicker">FEITO PARA HAMBURGUERIAS</span>
+            <h2>Do smash ao artesanal: enxergue o custo de cada montagem.</h2>
+            <p>Não importa se está começando ou se já vende todos os dias. O importante é considerar cada ingrediente, adicional, embalagem e taxa antes de definir o preço.</p>
           </div>
           <div className="audience-list">
             {audiences.map((audience) => <div key={audience}><CheckIcon />{audience}</div>)}
@@ -651,7 +638,7 @@ export default function Home() {
           <div>
             <span className="section-kicker">SEU PRÓXIMO PREÇO PODE SER UMA DECISÃO MELHOR</span>
             <h2>Pare de precificar no achismo.</h2>
-            <p>Organize ingredientes, adicionais, embalagens, fichas técnicas e estoque em uma ferramenta criada para a rotina real de açaíterias.</p>
+            <p>Organize ingredientes, adicionais, embalagens, fichas técnicas e estoque em uma ferramenta preparada para a rotina de hamburguerias.</p>
           </div>
           <a href="#oferta">QUERO CONHECER O PRECIFICA MIX <span>→</span></a>
         </div>
