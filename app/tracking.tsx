@@ -9,6 +9,7 @@ import {
 
 const TRACKING_STORAGE_KEY = "precifica_mix_sales_tracking";
 const CHECKOUT_DEDUPLICATION_MS = 1_500;
+const OFFER_VALUE = 27;
 
 const knownTrackingKeys = new Set([
   "fbclid",
@@ -165,7 +166,7 @@ function sendPageView() {
   pushDataLayerEvent("view_content", {
     content_name: "Precifica Mix",
     content_category: "Food Service",
-    value: 47,
+    value: OFFER_VALUE,
     currency: "BRL",
     meta_event_name: "ViewContent",
     ...tracking,
@@ -183,7 +184,7 @@ function sendPageView() {
     window.fbq?.("track", "ViewContent", {
       content_name: "Precifica Mix",
       content_category: "Food Service",
-      value: 47,
+      value: OFFER_VALUE,
       currency: "BRL",
     });
   }
@@ -199,7 +200,7 @@ function trackCheckoutStarted(tracking: TrackingParams) {
   pushDataLayerEvent("checkout_iniciado", {
     produto: "precifica_mix",
     content_name: "Precifica Mix",
-    value: 47,
+    value: OFFER_VALUE,
     currency: "BRL",
     meta_event_name: "InitiateCheckout",
     ...tracking,
@@ -208,13 +209,13 @@ function trackCheckoutStarted(tracking: TrackingParams) {
   if ((process.env.NEXT_PUBLIC_TRACKING_MODE || "gtm") === "direct") {
     window.gtag?.("event", "checkout_iniciado", {
       produto: "precifica_mix",
-      value: 47,
+      value: OFFER_VALUE,
       currency: "BRL",
       ...tracking,
     });
     window.fbq?.("track", "InitiateCheckout", {
       content_name: "Precifica Mix",
-      value: 47,
+      value: OFFER_VALUE,
       currency: "BRL",
     });
   }
@@ -232,7 +233,7 @@ export function trackSalesAgentOpened(
   pushDataLayerEvent("sales_agent_opened", {
     produto: "precifica_mix",
     content_name: "Precifica Mix",
-    value: 47,
+    value: OFFER_VALUE,
     currency: "BRL",
     ...tracking,
   });
@@ -240,13 +241,13 @@ export function trackSalesAgentOpened(
   if ((process.env.NEXT_PUBLIC_TRACKING_MODE || "gtm") === "direct") {
     window.gtag?.("event", "sales_agent_opened", {
       produto: "precifica_mix",
-      value: 47,
+      value: OFFER_VALUE,
       currency: "BRL",
       ...tracking,
     });
     window.fbq?.("trackCustom", "SalesAgentOpened", {
       content_name: "Precifica Mix",
-      value: 47,
+      value: OFFER_VALUE,
       currency: "BRL",
     });
   }
