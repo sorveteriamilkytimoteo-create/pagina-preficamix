@@ -55,6 +55,7 @@ function ProductMockup() {
 
   return (
     <div className="product-stage" aria-label="Ficha técnica e precificação de um hambúrguer artesanal no Precifica Mix">
+      <p className="product-demo-label">Veja abaixo como seria a precificação do seu produto na prática.</p>
       <div className="glow glow-one" />
       <div className="glow glow-two" />
       <div className="browser-shell">
@@ -278,9 +279,9 @@ export default function Home() {
         <div className="container hero-grid">
           <div className="hero-copy">
             <div className="eyebrow"><span>!</span> PARA DONOS DE HAMBURGUERIAS E LANCHONETES</div>
-            <h1>O problema não é só vender pouco. <em>É vender sem saber o que sobra.</em></h1>
+            <h1>Faturamento não é lucro. Descubra o <em>preço certo</em> dos seus produtos.</h1>
             <p className="hero-lead">
-              Você pode estar cheio de pedidos e, ainda assim, trabalhar para pagar ingredientes, embalagens, taxas e despesas.
+              Calcule custos, margem e preço ideal para balcão, delivery e iFood de forma simples e prática, em menos de 5 minutos.
             </p>
           </div>
           <ProductMockup />
@@ -292,11 +293,11 @@ export default function Home() {
             </div>
             <div className="hero-offer-preview" aria-label="Oferta especial do Precifica Mix">
               <span>OFERTA ESPECIAL</span>
-              <div><small>por apenas</small><strong>R$ 27</strong></div>
+              <div><small>De <s>R$ 97,00</s> por apenas</small><strong>R$ 27</strong></div>
               <p>Pagamento único · videoaulas · suporte humanizado</p>
             </div>
             <a className="primary-cta" href="#oferta">
-              QUERO PRECIFICAR MEU HAMBÚRGUER <span>→</span>
+              QUERO PRECIFICAR CERTO AGORA <span>→</span>
             </a>
             <p className="microcopy"><span aria-hidden="true">🔒</span> Acesso imediato · compra segura pela Hotmart · garantia de 7 dias</p>
           </div>
@@ -651,7 +652,7 @@ export default function Home() {
                 <div><span>✓</span><strong>Suporte humanizado</strong></div>
               </div>
               <TrackedCheckoutLink className="buy-button" baseUrl={CHECKOUT_URL}>
-                QUERO ACESSAR AGORA <span>→</span>
+                QUERO PRECIFICAR CERTO AGORA <span>→</span>
                 <small>Pagamento único · acesso imediato · sem mensalidade</small>
               </TrackedCheckoutLink>
               <div className="purchase-protection">
