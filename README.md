@@ -6,8 +6,8 @@ Página de vendas em Next.js 15 com encaminhamento completo de UTMs para o check
 
 A página inclui:
 
-- primeira dobra específica para a dor de açaíterias;
-- demonstração interativa focada em açaíteria, usando telas reais do sistema;
+- primeira dobra específica para a dor de hamburguerias;
+- demonstração interativa focada em hamburgueria;
 - simulador educativo do custo mensal de um erro de precificação;
 - comparação entre preço de balcão e preço de aplicativo;
 - navegação fixa no desktop e oferta fixa no celular;
