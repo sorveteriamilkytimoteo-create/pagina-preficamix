@@ -291,11 +291,6 @@ export default function Home() {
               <span><CheckIcon /> Taxas por canal</span>
               <span><CheckIcon /> Margem e preço ideal</span>
             </div>
-            <div className="hero-offer-preview" aria-label="Oferta especial do Precifica Mix">
-              <span>OFERTA ESPECIAL</span>
-              <div><small>De <s>R$ 97,00</s> por apenas</small><strong>R$ 27</strong></div>
-              <p>Pagamento único · videoaulas · suporte humanizado</p>
-            </div>
             <a className="primary-cta" href="#oferta">
               QUERO PRECIFICAR CERTO AGORA <span>→</span>
             </a>
