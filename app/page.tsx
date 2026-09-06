@@ -633,7 +633,7 @@ export default function Home() {
               <div className="limited-badge">OFERTA ESPECIAL</div>
               <p>De <s>R$ 97,00</s> por apenas:</p>
               <div className="price"><span>R$</span><strong>37</strong><small>,00</small></div>
-              <div className="discount-callout"><strong>72% DE DESCONTO</strong><span>Economize R$ 70 nesta condição promocional</span></div>
+              <div className="discount-callout"><strong>62% DE DESCONTO</strong><span>Economize R$ 60 nesta condição promocional</span></div>
               <div className="one-time"><span>✓</span><div><strong>Pagamento único e sem assinatura</strong><small>Acesso completo ao Precifica Mix</small></div></div>
               <div className="offer-inclusions" aria-label="Tudo o que está incluído na oferta">
                 <p>TUDO ISSO ESTÁ INCLUÍDO:</p>
