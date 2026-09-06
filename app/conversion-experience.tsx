@@ -260,7 +260,7 @@ export function LossCalculator() {
           <span>PERDA ESTIMADA EM 30 DIAS</span>
           <strong>{money.format(monthlyLoss)}</strong>
           <p>
-            Isso equivale a <b>{Math.max(1, Math.round(monthlyLoss / 27))} vezes</b> o valor desta
+            Isso equivale a <b>{Math.max(1, Math.round(monthlyLoss / 37))} vezes</b> o valor desta
             oferta do Precifica Mix.
           </p>
           <a href="#oferta">QUERO PARAR DE PRECIFICAR NO ESCURO <span>→</span></a>
