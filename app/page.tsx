@@ -22,7 +22,7 @@ const softwareSchema = {
     "Ferramenta de precificação, fichas técnicas e controle de estoque para hamburguerias.",
   offers: {
     "@type": "Offer",
-    price: "27.00",
+    price: "37.00",
     priceCurrency: "BRL",
     url: CHECKOUT_URL,
   },
