@@ -523,33 +523,45 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="real-use-wrap">
-            <div className="real-use-heading">
-              <span className="section-kicker">APLICADO EM OPERAÇÕES REAIS</span>
-              <h3>Do ingrediente ao preço por canal: uma demonstração baseada na operação real.</h3>
+          <div className="testimonials-wrap" aria-labelledby="testimonials-title">
+            <div className="testimonials-heading">
+              <span className="section-kicker">DEPOIMENTOS DE CLIENTES</span>
+              <h3 id="testimonials-title">Quem usa o Precifica Mix conta o que mudou na hora de precificar.</h3>
+              <p>Experiências de negócios de alimentação que começaram a olhar para custos, taxas e margens com mais clareza.</p>
             </div>
-            <div className="real-use-grid">
-              <article className="real-use-card">
-                <div className="real-use-icon" aria-hidden="true">🍨</div>
-                <div>
-                  <span>VALIDAÇÃO NA OPERAÇÃO</span>
-                  <h4>Sorvetes Milky · Timóteo/MG</h4>
-                  <p>
-                    A rotina da sorveteria mostrou na prática a importância de reunir ingredientes,
-                    porções, embalagens, adicionais e taxas de cada canal antes de definir o preço.
-                  </p>
+            <div className="testimonials-grid">
+              <article className="testimonial-card">
+                <div className="testimonial-copy">
+                  <span>SORVETERIA E DELIVERY</span>
+                  <blockquote>“Eu não considerava a taxa de 17,19% e outros custos, e estava tendo prejuízo sem saber!”</blockquote>
+                  <p>Maria Martins <small>· Sorveteria Sabor Real</small></p>
                 </div>
+                <a href="/depoimento-maria-precifica-mix.png" target="_blank" rel="noopener noreferrer" aria-label="Abrir o depoimento completo de Maria Martins em nova aba">
+                  <Image src="/depoimento-maria-precifica-mix.png" alt="Depoimento completo de Maria Martins sobre o Precifica Mix" width={1254} height={1254} sizes="(max-width: 760px) 90vw, (max-width: 1100px) 44vw, 30vw" />
+                  <span>Ver depoimento completo ↗</span>
+                </a>
               </article>
-              <article className="real-use-card">
-                <div className="real-use-icon" aria-hidden="true">🍔</div>
-                <div>
-                  <span>EXEMPLO DE FICHA TÉCNICA</span>
-                  <h4>Hambúrguer artesanal 160 g</h4>
-                  <p>
-                    No hambúrguer, cada ingrediente, adicional e embalagem altera o custo. A ficha
-                    técnica reúne tudo para evitar que o lanche mais vendido esconda prejuízo.
-                  </p>
+              <article className="testimonial-card">
+                <div className="testimonial-copy">
+                  <span>HAMBURGUERIA</span>
+                  <blockquote>“Descobri que estava tendo prejuízo em 3 produtos do meu cardápio.”</blockquote>
+                  <p>Patricia S. <small>· Vila Real Hamburgueria</small></p>
                 </div>
+                <a href="/depoimento-patricia-precifica-mix.jpg" target="_blank" rel="noopener noreferrer" aria-label="Abrir o depoimento completo de Patricia S. em nova aba">
+                  <Image src="/depoimento-patricia-precifica-mix.jpg" alt="Depoimento completo de Patricia S. sobre o Precifica Mix" width={1134} height={944} sizes="(max-width: 760px) 90vw, (max-width: 1100px) 44vw, 30vw" />
+                  <span>Ver depoimento completo ↗</span>
+                </a>
+              </article>
+              <article className="testimonial-card">
+                <div className="testimonial-copy">
+                  <span>LANCHONETE</span>
+                  <blockquote>“O aplicativo é excelente, muito prático.”</blockquote>
+                  <p>Marcos Assis <small>· Lanchonete Ponto do Sabor</small></p>
+                </div>
+                <a href="/depoimento-marcos-precifica-mix.png" target="_blank" rel="noopener noreferrer" aria-label="Abrir o depoimento completo de Marcos Assis em nova aba">
+                  <Image src="/depoimento-marcos-precifica-mix.png" alt="Depoimento completo de Marcos Assis sobre o Precifica Mix" width={1254} height={1254} sizes="(max-width: 760px) 90vw, (max-width: 1100px) 44vw, 30vw" />
+                  <span>Ver depoimento completo ↗</span>
+                </a>
               </article>
             </div>
           </div>
