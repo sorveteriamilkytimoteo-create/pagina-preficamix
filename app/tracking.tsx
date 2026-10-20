@@ -10,6 +10,7 @@ import {
 const TRACKING_STORAGE_KEY = "precifica_mix_sales_tracking";
 const CHECKOUT_DEDUPLICATION_MS = 1_500;
 const OFFER_VALUE = 27;
+const TIKTOK_PIXEL_ID = "DBBMRA3C77U8I4RIUQ20";
 
 const knownTrackingKeys = new Set([
   "fbclid",
@@ -39,7 +40,61 @@ declare global {
       push?: (...args: unknown[]) => void;
     };
     _fbq?: Window["fbq"];
+    ttq?: TikTokPixelQueue;
+    __precificaTikTokInitialized?: boolean;
   }
+}
+
+type TikTokPixelQueue = Array<unknown> & {
+  methods?: string[];
+  setAndDefer?: (target: TikTokPixelQueue, method: string) => void;
+  load?: (pixelId: string) => void;
+  _i?: Record<string, TikTokPixelQueue & { _u?: string }>;
+  _t?: Record<string, number>;
+  _o?: Record<string, Record<string, unknown>>;
+  page?: () => void;
+  track?: (event: string, properties?: Record<string, unknown>) => void;
+};
+
+function initializeTikTokPixel() {
+  if (window.__precificaTikTokInitialized) return;
+  window.__precificaTikTokInitialized = true;
+
+  // Snippet oficial do TikTok adaptado ao ciclo de vida do React/Next.js.
+  // Não sobrescreve uma instalação que já exista na página.
+  if (!window.ttq) {
+    const ttq = [] as unknown as TikTokPixelQueue;
+    const methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie", "holdConsent", "revokeConsent", "grantConsent"];
+    ttq.methods = methods;
+    ttq.setAndDefer = (target, method) => {
+      (target as unknown as Record<string, unknown>)[method] = (...args: unknown[]) => {
+        target.push([method, ...args]);
+      };
+    };
+    for (const method of methods) ttq.setAndDefer(ttq, method);
+    window.ttq = ttq;
+  }
+
+  const ttq = window.ttq;
+  if (!ttq) return;
+  // Se o GTM já instalou este pixel, não reinicializar o mesmo ID.
+  if (ttq._i?.[TIKTOK_PIXEL_ID]) return;
+  if (!ttq.load) {
+    ttq.load = (pixelId: string) => {
+      const scriptUrl = "https://analytics.tiktok.com/i18n/pixel/events.js";
+      ttq._i = ttq._i || {};
+      const instance = [] as unknown as TikTokPixelQueue & { _u?: string };
+      for (const method of ttq.methods || []) ttq.setAndDefer?.(instance, method);
+      instance._u = scriptUrl;
+      ttq._i[pixelId] = instance;
+      ttq._t = ttq._t || {};
+      ttq._t[pixelId] = Date.now();
+      ttq._o = ttq._o || {};
+      ttq._o[pixelId] = {};
+      addScript("precifica-tiktok-pixel", `${scriptUrl}?sdkid=${encodeURIComponent(pixelId)}&lib=ttq`);
+    };
+  }
+  ttq.load(TIKTOK_PIXEL_ID);
 }
 
 function sanitizeValue(value: string) {
@@ -157,6 +212,8 @@ function sendPageView() {
   window.__precificaPageViewSent = true;
 
   const tracking = getTrackingParams();
+  window.ttq?.page?.();
+  window.ttq?.track?.("ViewContent", { content_name: "Precifica Mix", content_type: "product", content_id: "precifica_mix", value: OFFER_VALUE, currency: "BRL" });
   pushDataLayerEvent("page_view", {
     page_title: document.title,
     page_location: window.location.href,
@@ -196,6 +253,7 @@ function trackCheckoutStarted(tracking: TrackingParams) {
     return false;
   }
   window.__precificaLastCheckoutAt = now;
+  window.ttq?.track?.("InitiateCheckout", { content_name: "Precifica Mix", content_type: "product", content_id: "precifica_mix", value: OFFER_VALUE, currency: "BRL" });
 
   pushDataLayerEvent("checkout_iniciado", {
     produto: "precifica_mix",
@@ -291,6 +349,7 @@ export function SalesTrackingProvider() {
         if (metaPixelId) initializeMetaPixel(metaPixelId);
       }
       if (utmifyPixelId) initializeUtmify(utmifyPixelId);
+      initializeTikTokPixel();
     }
 
     sendPageView();
