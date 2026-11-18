@@ -9,7 +9,7 @@ import {
 
 const TRACKING_STORAGE_KEY = "precifica_mix_sales_tracking";
 const CHECKOUT_DEDUPLICATION_MS = 1_500;
-const OFFER_VALUE = 27;
+const OFFER_VALUE = 37;
 const TIKTOK_PIXEL_ID = "DBBMRA3C77U8I4RIUQ20";
 
 const knownTrackingKeys = new Set([
@@ -247,18 +247,18 @@ function sendPageView() {
   }
 }
 
-function trackCheckoutStarted(tracking: TrackingParams) {
+function trackCheckoutStarted(tracking: TrackingParams, offerValue: number = OFFER_VALUE) {
   const now = Date.now();
   if (now - (window.__precificaLastCheckoutAt || 0) < CHECKOUT_DEDUPLICATION_MS) {
     return false;
   }
   window.__precificaLastCheckoutAt = now;
-  window.ttq?.track?.("InitiateCheckout", { content_name: "Precifica Mix", content_type: "product", content_id: "precifica_mix", value: OFFER_VALUE, currency: "BRL" });
+  window.ttq?.track?.("InitiateCheckout", { content_name: "Precifica Mix", content_type: "product", content_id: "precifica_mix", value: offerValue, currency: "BRL" });
 
   pushDataLayerEvent("checkout_iniciado", {
     produto: "precifica_mix",
     content_name: "Precifica Mix",
-    value: OFFER_VALUE,
+    value: offerValue,
     currency: "BRL",
     meta_event_name: "InitiateCheckout",
     ...tracking,
@@ -267,13 +267,13 @@ function trackCheckoutStarted(tracking: TrackingParams) {
   if ((process.env.NEXT_PUBLIC_TRACKING_MODE || "gtm") === "direct") {
     window.gtag?.("event", "checkout_iniciado", {
       produto: "precifica_mix",
-      value: OFFER_VALUE,
+      value: offerValue,
       currency: "BRL",
       ...tracking,
     });
     window.fbq?.("track", "InitiateCheckout", {
       content_name: "Precifica Mix",
-      value: OFFER_VALUE,
+      value: offerValue,
       currency: "BRL",
     });
   }
@@ -363,11 +363,13 @@ type TrackedCheckoutLinkProps = Omit<
   "href" | "onClick"
 > & {
   baseUrl: string;
+  offerValue?: number;
   children: ReactNode;
 };
 
 export function TrackedCheckoutLink({
   baseUrl,
+  offerValue = OFFER_VALUE,
   children,
   ...props
 }: TrackedCheckoutLinkProps) {
@@ -379,7 +381,7 @@ export function TrackedCheckoutLink({
     // possa ter acrescentado e, depois, garante todos os parâmetros capturados.
     const checkoutUrl = buildCheckoutUrl(event.currentTarget.href || baseUrl, latestTracking);
     if (!checkoutUrl) return;
-    if (!trackCheckoutStarted(latestTracking)) return;
+    if (!trackCheckoutStarted(latestTracking, offerValue)) return;
 
     window.location.assign(checkoutUrl);
   }

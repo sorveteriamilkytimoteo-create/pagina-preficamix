@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { OfferPlans } from "./offer-plans";
 import { TrackedCheckoutLink } from "./tracking";
 import { RecentSaleNotification } from "./recent-sale-notification";
 import { DirectWhatsAppButton } from "./direct-whatsapp-button";
@@ -11,6 +12,8 @@ import {
 const CHECKOUT_URL =
   process.env.NEXT_PUBLIC_HOTMART_CHECKOUT_URL ||
   "https://pay.hotmart.com/D106845746F?off=dbag2uwj&checkoutMode=10";
+
+const COMPLETE_CHECKOUT_URL = "https://pay.hotmart.com/D106845746F?off=vmyz2iyc&checkoutMode=10";
 
 const softwareSchema = {
   "@context": "https://schema.org",
@@ -207,8 +210,12 @@ const faqs = [
     answer: "Não. O Precifica Mix foi criado para simplificar. Você informa os valores e quantidades da sua operação, e a ferramenta organiza os cálculos para mostrar custo, margem e preço recomendado.",
   },
   {
+    question: "Qual a diferença entre Essencial e Completo?",
+    answer: "O Essencial inclui o Precifica Mix. O Completo inclui o mesmo aplicativo, um PDF com 30 fichas técnicas de hamburgueria para adaptar no sistema e 30 dias de Gestão Mix. Não inclui planilha Excel.",
+  },
+  {
     question: "O pagamento é mensal?",
-    answer: "Não. Nesta oferta, o pagamento é único e não existe assinatura mensal recorrente.",
+    answer: "O pagamento pelo Precifica Mix é único. No Completo, o acesso ao Gestão Mix é gratuito por 30 dias; depois disso, a continuidade é opcional e exige contratação separada.",
   },
   {
     question: "Os insumos já vêm cadastrados?",
@@ -622,7 +629,7 @@ export default function Home() {
           <div className="offer-copy">
             <Brand />
             <span className="section-kicker">OFERTA ESPECIAL · PAGAMENTO ÚNICO</span>
-            <h2>Uma ferramenta pronta para usar, com orientação para começar.</h2>
+            <h2>Escolha como você quer começar a precificar.</h2>
             <p>Cadastre seus produtos, simule cenários e encontre o preço certo. O Precifica Mix faz as contas, organiza as informações e ainda oferece ajuda para você dar os primeiros passos.</p>
             <ul className="offer-benefits">
               <li><CheckIcon /> Precificação correta por canal</li>
@@ -638,35 +645,10 @@ export default function Home() {
           <div className="offer-card-column">
             <div className="mobile-offer-headline">
               <span>OFERTA ESPECIAL · PAGAMENTO ÚNICO</span>
-              <h2>Precifique melhor com ferramenta e orientação.</h2>
-              <p>O sistema faz os cálculos, e você recebe ajuda para começar.</p>
+              <h2>Dois planos. Um jeito mais fácil de precificar.</h2>
+              <p>Escolha o Essencial ou leve também as 30 fichas técnicas no Completo.</p>
             </div>
-            <div className="price-card">
-              <div className="limited-badge">OFERTA ESPECIAL</div>
-              <p>De <s>R$ 97,00</s> por apenas:</p>
-              <div className="price"><span>R$</span><strong>37</strong><small>,00</small></div>
-              <div className="discount-callout"><strong>62% DE DESCONTO</strong><span>Economize R$ 60 nesta condição promocional</span></div>
-              <div className="one-time"><span>✓</span><div><strong>Pagamento único e sem assinatura</strong><small>Acesso completo ao Precifica Mix</small></div></div>
-              <div className="offer-inclusions" aria-label="Tudo o que está incluído na oferta">
-                <p>TUDO ISSO ESTÁ INCLUÍDO:</p>
-                <div><span>✓</span><strong>Precificação correta dos produtos</strong></div>
-                <div><span>✓</span><strong>Preço diferente por canal de venda</strong></div>
-                <div><span>✓</span><strong>Simulação de vendas e impacto no lucro</strong></div>
-                <div><span>✓</span><strong>Fichas técnicas e controle de estoque</strong></div>
-                <div><span>✓</span><strong>Mais de 50 insumos para importar</strong></div>
-                <div><span>✓</span><strong>Videoaulas com o passo a passo</strong></div>
-                <div><span>✓</span><strong>Acompanhamento inicial</strong></div>
-                <div><span>✓</span><strong>Suporte humanizado</strong></div>
-              </div>
-              <TrackedCheckoutLink className="buy-button" baseUrl={CHECKOUT_URL}>
-                QUERO PRECIFICAR CERTO AGORA <span>→</span>
-                <small>Pagamento único · acesso imediato · sem mensalidade</small>
-              </TrackedCheckoutLink>
-              <div className="purchase-protection">
-                <div className="secure-purchase"><span>🔒</span><div><strong>COMPRA SEGURA</strong><small>Pagamento protegido pela Hotmart</small></div></div>
-                <div className="guarantee-highlight"><span>7</span><div><strong>7 DIAS DE GARANTIA</strong><small>Teste sem risco ou solicite o reembolso</small></div></div>
-              </div>
-            </div>
+            <OfferPlans essentialUrl={CHECKOUT_URL} completeUrl={COMPLETE_CHECKOUT_URL} />
           </div>
         </div>
       </section>
