@@ -100,7 +100,7 @@ function ProductMockup() {
                 </div>
                 <div className="channel-result ifood-channel">
                   <div><small>IFOOD · DELIVERY APP</small><strong>R$ 29,90</strong></div>
-                  <span><small>TAXA CONSIDERADA</small><b>17%</b></span>
+                  <span><small>TAXA CONSIDERADA</small><b>17,19%</b></span>
                   <span><small>CMV</small><b>32,5%</b></span>
                 </div>
               </div>
@@ -269,6 +269,36 @@ function MiniPricingScreen() {
   );
 }
 
+function HeroSocialProof() {
+  const avatars = [
+    { initials: "MM", bg: "#047857" },
+    { initials: "PS", bg: "#15803d" },
+    { initials: "MA", bg: "#0f766e" },
+    { initials: "LC", bg: "#b45309" },
+    { initials: "RF", bg: "#065f46" },
+  ];
+  return (
+    <div className="pm-hero-proof" aria-label="Avaliação de donos de hamburguerias e lanchonetes">
+      <div className="pm-hero-avatars" aria-hidden="true">
+        {avatars.map((a) => (
+          <span key={a.initials} style={{ backgroundColor: a.bg }}>
+            {a.initials}
+          </span>
+        ))}
+      </div>
+      <div className="pm-hero-proof-copy">
+        <div className="pm-hero-stars">
+          <span>★★★★★</span>
+          <strong>4,9/5</strong>
+        </div>
+        <p>
+          <strong>+5.000 hamburguerias e lanchonetes</strong> já precificam com o Precifica Mix
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <main id="topo">
@@ -301,6 +331,7 @@ export default function Home() {
             <a className="primary-cta" href="#oferta">
               QUERO PRECIFICAR CERTO AGORA <span>→</span>
             </a>
+            <HeroSocialProof />
             <p className="microcopy"><span aria-hidden="true">🔒</span> Acesso imediato · compra segura pela Hotmart · garantia de 7 dias</p>
           </div>
         </div>

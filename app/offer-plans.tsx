@@ -30,7 +30,7 @@ export function OfferPlans({ essentialUrl, completeUrl }: { essentialUrl: string
         <h3>Precifique e comece com modelos prontos</h3>
         <div className="pm-plan-price">R$ 67<span>,00</span></div>
         <p>Pagamento único pelo pacote. Inclui tudo do Essencial e bônus exclusivos.</p>
-        <ul><li>✓ Tudo do plano Essencial</li><li>✓ <strong>PDF com 30 fichas técnicas de hamburgueria</strong></li><li>✓ 30 dias de acesso ao Gestão Mix</li></ul>
+        <ul><li>✓ Tudo do plano Essencial</li><li>✓ <strong>PDF com 30 fichas técnicas de hamburgueria</strong></li><li>✓ <strong>30 dias de acesso ao Gestão Mix</strong> (sem cobrança automática)</li></ul>
         <div className="pm-bonus-preview"><img src="/bonus-30-fichas-capa.png" alt="Capa ilustrada do bônus com 30 fichas técnicas de hamburgueria" /><span>20 lanches, 5 porções e 5 combos. Exemplos de ingredientes, gramaturas e preços para adaptar no Precifica Mix.</span></div>
         <button type="button" className="pm-plan-btn" onClick={() => setActive("completo")}>QUERO O COMPLETO POR R$ 67</button>
         <small>Por R$ 30 a mais que o Essencial</small>
