@@ -67,7 +67,7 @@ export function InteractivePricingDemo() {
   const explanation = screen === "canais"
     ? "O hambúrguer custa R$ 9,71, mas precisa de preços diferentes no balcão e no iFood para preservar a margem da operação."
     : screen === "taxa"
-      ? "Os R$ 29,90 no iFood consideram a taxa de 17%. O sistema calcula essa diferença para evitar que a comissão saia do seu lucro."
+      ? "Os R$ 29,90 no iFood consideram a taxa de 17,19%. O sistema calcula essa diferença para evitar que a comissão saia do seu lucro."
       : "Se o preço atual for R$ 21,90, uma correção de R$ 3 representa R$ 300 a mais em 100 vendas mensais.";
 
   return (
@@ -138,7 +138,7 @@ export function InteractivePricingDemo() {
                 <div className="burger-channel-card">
                   <div className="burger-card-title"><b>2</b><span><small>RESULTADO POR CANAL</small><strong>Preço recomendado</strong></span></div>
                   <article><small>BALCÃO E RETIRADA</small><strong>R$ 24,90</strong><div><span>CMV</span><b>39%</b></div></article>
-                  <article className="ifood-demo-result"><small>IFOOD E DELIVERY APP</small><strong>R$ 29,90</strong><div><span>Taxa considerada</span><b>17%</b></div></article>
+                  <article className="ifood-demo-result"><small>IFOOD E DELIVERY APP</small><strong>R$ 29,90</strong><div><span>Taxa considerada</span><b>17,19%</b></div></article>
                 </div>
               </div>
             )}
@@ -149,7 +149,7 @@ export function InteractivePricingDemo() {
                   <span>PARÂMETROS DO IFOOD</span>
                   <div><small>Custo da ficha</small><strong>R$ 9,71</strong></div>
                   <div><small>Margem desejada</small><strong>35%</strong></div>
-                  <div className="fee-highlight"><small>Taxas e comissões</small><strong>17%</strong></div>
+                  <div className="fee-highlight"><small>Taxas e comissões</small><strong>17,19%</strong></div>
                   <div><small>Embalagem extra</small><strong>R$ 0,00</strong></div>
                 </div>
                 <div className="fee-result-card">

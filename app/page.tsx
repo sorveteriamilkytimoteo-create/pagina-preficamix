@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { OfferPlans } from "./offer-plans";
-import { TrackedCheckoutLink } from "./tracking";
 import { RecentSaleNotification } from "./recent-sale-notification";
 import { DirectWhatsAppButton } from "./direct-whatsapp-button";
 import {
@@ -58,7 +57,7 @@ function ProductMockup() {
 
   return (
     <div className="product-stage" aria-label="Ficha técnica e precificação de um hambúrguer artesanal no Precifica Mix">
-      <p className="product-demo-label">Veja abaixo como seria a precificação do seu produto na prática.</p>
+      <p className="product-demo-label">Veja o sistema calculando um hambúrguer artesanal na prática.</p>
       <div className="glow glow-one" />
       <div className="glow glow-two" />
       <div className="browser-shell">
@@ -83,7 +82,7 @@ function ProductMockup() {
 
             <div className="burger-pricing-grid">
               <div className="ingredient-panel">
-                <div className="panel-title"><span>1</span><div><small>COMPOSIÇÃO DO PRODUTO</small><strong>Ingredientes, complementos e embalagens</strong></div></div>
+                <div className="panel-title"><span>1</span><div><small>COMPOSIÇÃO DO PRODUTO</small><strong>Ingredientes e embalagem</strong></div></div>
                 <div className="ingredient-list">
                   {ingredients.map(([name, qty, price]) => (
                     <div key={name}><span>{name}<small style={{display:'block', opacity:.6, fontSize:'9px'}}>{qty}</small></span><b>{price}</b></div>
@@ -113,7 +112,7 @@ function ProductMockup() {
               <span>→</span>
               <div className="recommended-price"><small>IFOOD / DELIVERY APP</small><strong>R$ 29,90</strong></div>
             </div>
-            <div className="automatic-note"><span>✓</span> + R$ 5,00 no iFood para compensar taxas e comissões.</div>
+            <div className="automatic-note"><span>✓</span> + R$ 5,00 no iFood para cobrir a taxa de 17,19% e proteger sua margem.</div>
           </div>
         </div>
       </div>
@@ -125,50 +124,50 @@ const painPoints = [
   {
     number: "01",
     title: "Copiar o preço do concorrente",
-    text: "Ele tem outros custos, fornecedores e porções. O preço que funciona para ele pode dar prejuízo para você.",
+    text: "Ele tem outros custos, fornecedores e gramaturas. O preço dele pode corroer o seu lucro.",
   },
   {
     number: "02",
     title: "Multiplicar o custo por dois",
-    text: "Essa conta ignora embalagem, perdas, taxas, despesas e a margem que o seu negócio realmente precisa.",
+    text: "Ignora embalagem, molhos, perdas e a taxa de 17,19% do iFood que saem do seu caixa.",
   },
   {
     number: "03",
-    title: "Achar que faturamento é lucro",
-    text: "Dinheiro entrando não significa dinheiro sobrando. Sem ficha técnica, o prejuízo pode estar escondido no cardápio.",
+    title: "Confundir faturamento com lucro",
+    text: "Vender muito com margem errada faz a cozinha rodar e o lucro sumir no fim do mês.",
   },
 ];
 
 const features = [
   {
     icon: "⌁",
-    title: "Custo exato por ingrediente",
-    text: "Saiba quanto cada grama, ml ou unidade representa no custo final da receita.",
+    title: "Custo exato por porção",
+    text: "Saiba quanto cada grama, ml ou unidade custa de verdade na receita.",
   },
   {
     icon: "▤",
-    title: "Fichas técnicas padronizadas",
-    text: "Registre ingredientes, rendimento, porções e embalagens em um único lugar.",
+    title: "Fichas técnicas claras",
+    text: "Reúna ingredientes, rendimento e embalagens sem depender de planilhas.",
   },
   {
     icon: "$",
-    title: "Preço ideal de venda",
-    text: "Defina sua margem e encontre um preço coerente para balcão, delivery e outros canais.",
+    title: "Preço por canal de venda",
+    text: "Calcule balcão, delivery próprio e apps como iFood e 99Food com margem real.",
   },
   {
     icon: "▣",
-    title: "Estoque organizado",
-    text: "Acompanhe entradas, saídas e o valor dos insumos para reduzir desperdícios.",
+    title: "Controle de estoque",
+    text: "Acompanhe entradas, saídas e custos dos insumos para reduzir perdas.",
   },
   {
     icon: "↗",
-    title: "Histórico de custos",
-    text: "Veja alterações de preço e entenda quando seus produtos precisam ser recalculados.",
+    title: "Atualização de custos",
+    text: "Subiu o preço do insumo? Recalcule o impacto nos produtos em poucos cliques.",
   },
   {
     icon: "✓",
-    title: "Diagnóstico do cardápio",
-    text: "Identifique produtos fora da margem e priorize o que precisa de correção primeiro.",
+    title: "Cardápio digital no Completo",
+    text: "No plano Completo, ganhe 30 dias de Gestão Mix com cardápio digital para otimizar vendas.",
   },
 ];
 
@@ -184,66 +183,46 @@ const audiences = [
 const salesChannels = [
   {
     icon: "↗",
-    title: "iFood e delivery",
-    text: "Inclua a comissão percentual e as cobranças do canal para não absorver taxas sem perceber.",
+    title: "iFood e delivery (17,19%)",
+    text: "Embuta a taxa de 17,19% e os custos do canal para não trabalhar sem lucro no app.",
   },
   {
     icon: "%",
     title: "Máquinas de cartão",
-    text: "Considere débito, crédito e parcelamento para enxergar quanto realmente sobra em cada venda.",
+    text: "Considere taxas de débito, crédito e parcelamento direto na margem do produto.",
   },
   {
     icon: "⌁",
     title: "99Food e marketplaces",
-    text: "Configure as condições de cada plataforma e compare o preço necessário por canal.",
+    text: "Compare o preço ideal de cada canal sem misturar margens diferentes.",
   },
   {
     icon: "▣",
-    title: "Balcão e retirada",
-    text: "Mantenha preços coerentes sem misturar custos de canais com operações diferentes.",
+    title: "Balcão e cardápio digital",
+    text: "Padronize preços no balcão e leve sua operação com o Gestão Mix no plano Completo.",
   },
 ];
 
 const faqs = [
   {
-    question: "Preciso entender de finanças ou precificação?",
-    answer: "Não. O Precifica Mix foi criado para simplificar. Você informa os valores e quantidades da sua operação, e a ferramenta organiza os cálculos para mostrar custo, margem e preço recomendado.",
+    question: "Preciso entender de finanças ou planilhas?",
+    answer: "Não. Você informa o que paga nos insumos e embalagens, e o Precifica Mix faz os cálculos automaticamente.",
   },
   {
-    question: "Qual a diferença entre Essencial e Completo?",
-    answer: "O Essencial inclui o Precifica Mix. O Completo inclui o mesmo aplicativo, um PDF com 30 fichas técnicas de hamburgueria para adaptar no sistema e 30 dias de Gestão Mix. Não inclui planilha Excel.",
+    question: "O que o plano Completo (R$ 67) ganha a mais que o Essencial (R$ 37)?",
+    answer: "Além do app Precifica Mix, o Completo inclui um PDF com 30 fichas técnicas de hamburgueria e 30 dias de acesso ao Gestão Mix com cardápio digital e recursos para otimizar vendas.",
   },
   {
-    question: "O pagamento é mensal?",
-    answer: "O pagamento pelo Precifica Mix é único. No Completo, o acesso ao Gestão Mix é gratuito por 30 dias; depois disso, a continuidade é opcional e exige contratação separada.",
+    question: "Os 30 dias de Gestão Mix viram cobrança automática?",
+    answer: "Não. O pagamento do Precifica Mix é único e os 30 dias de Gestão Mix não têm cobrança automática; a continuidade após o período é opcional.",
   },
   {
-    question: "Os insumos já vêm cadastrados?",
-    answer: "Você recebe uma biblioteca inicial com ingredientes e embalagens comuns em hamburguerias para acelerar a configuração. Depois, pode ajustar os preços e criar seus próprios itens.",
+    question: "Já vem com insumos cadastrados e taxa do iFood?",
+    answer: "Sim. Você conta com 50 modelos de insumos para agilizar o início e pode configurar a taxa de 17,19% do iFood, outros canais e cartão.",
   },
   {
-    question: "Funciona para todos os produtos da minha hamburgueria?",
-    answer: "Sim. Você pode criar fichas para hambúrgueres, porções, molhos, adicionais, combos e outros produtos, usando os ingredientes, rendimentos e embalagens reais da sua operação.",
-  },
-  {
-    question: "Consigo considerar taxas do iFood e da máquina de cartão?",
-    answer: "Sim. Você pode configurar os custos dos canais de venda, como comissão do iFood, taxas de outros marketplaces e percentuais das máquinas de cartão, para analisar quanto cada venda realmente deixa no caixa.",
-  },
-  {
-    question: "Consigo acessar pelo celular?",
-    answer: "Sim. A ferramenta funciona pelo navegador e se adapta a celular, tablet e computador. Para cadastros maiores, o computador pode deixar o trabalho ainda mais confortável.",
-  },
-  {
-    question: "Como recebo o acesso depois da compra?",
-    answer: "Após a confirmação do pagamento, os dados de acesso e as orientações são enviados para o e-mail informado na Hotmart.",
-  },
-  {
-    question: "Vou receber ajuda para começar?",
-    answer: "Sim. Você recebe videoaulas com o passo a passo, acompanhamento inicial para organizar os primeiros cadastros e suporte humanizado para tirar dúvidas sobre o uso da ferramenta.",
-  },
-  {
-    question: "Tenho garantia?",
-    answer: "Sim. Você tem 7 dias para conhecer a ferramenta. Se ela não fizer sentido para o seu negócio, pode solicitar o reembolso dentro do prazo pela plataforma.",
+    question: "Funciona no celular e tem garantia?",
+    answer: "Sim. Funciona no navegador de celular, tablet e computador, com acesso imediato após a compra e garantia de 7 dias pela Hotmart.",
   },
 ];
 
@@ -264,7 +243,7 @@ function MiniPricingScreen() {
         <span>=</span>
         <div className="recommended"><small>PREÇO NO BALCÃO</small><strong>R$ 24,90</strong></div>
       </div>
-      <div className="healthy-message"><span>✓</span> Este produto está dentro da margem desejada.</div>
+      <div className="healthy-message"><span>✓</span> Margem saudável calculada com base no custo real da receita.</div>
     </div>
   );
 }
@@ -315,24 +294,24 @@ export default function Home() {
       <section className="hero" data-reveal>
         <div className="container hero-grid">
           <div className="hero-copy">
-            <div className="eyebrow"><span>!</span> PARA DONOS DE HAMBURGUERIAS E LANCHONETES</div>
-            <h1>Faturamento não é lucro. Descubra o <em>preço certo</em> dos seus produtos.</h1>
+            <div className="eyebrow"><span>BF</span> BLACK FRIDAY · HAMBURGUERIAS E LANCHONETES</div>
+            <h1>Faturamento não é lucro. Descubra o <em>preço certo</em> dos seus lanches.</h1>
             <p className="hero-lead">
-              Calcule custos, margem e preço ideal para balcão, delivery e iFood de forma simples e prática, em menos de 5 minutos.
+              Calcule custo real, margem e preço ideal para balcão e iFood em minutos — e no plano Completo leve <strong>30 dias de Gestão Mix com cardápio digital</strong>.
             </p>
           </div>
           <ProductMockup />
           <div className="hero-action">
             <div className="hero-benefits">
               <span><CheckIcon /> Custo por lanche</span>
-              <span><CheckIcon /> Taxas por canal</span>
-              <span><CheckIcon /> Margem e preço ideal</span>
+              <span><CheckIcon /> Taxa iFood 17,19%</span>
+              <span><CheckIcon /> Cardápio digital no Completo</span>
             </div>
             <a className="primary-cta" href="#oferta">
-              QUERO PRECIFICAR CERTO AGORA <span>→</span>
+              QUERO APROVEITAR A BLACK FRIDAY <span>→</span>
             </a>
             <HeroSocialProof />
-            <p className="microcopy"><span aria-hidden="true">🔒</span> Acesso imediato · compra segura pela Hotmart · garantia de 7 dias</p>
+            <p className="microcopy"><span aria-hidden="true">🔒</span> Pagamento único · Compra segura pela Hotmart · Garantia de 7 dias</p>
           </div>
         </div>
       </section>
@@ -340,17 +319,17 @@ export default function Home() {
       <section className="trust-strip" aria-label="Benefícios de compra">
         <div className="container trust-grid">
           <div><b>✓</b><span><strong>Pagamento único</strong><small>Sem mensalidade ou fidelidade</small></span></div>
-          <div><b className="client-count">+200</b><span><strong>Mais de 200 clientes</strong><small>Utilizando e aumentando seus lucros</small></span></div>
-          <div><b>✓</b><span><strong>Garantia de 7 dias</strong><small>Você testa sem correr risco</small></span></div>
-          <div><b>✓</b><span><strong>Feito para hamburguerias</strong><small>Do ingrediente ao preço do lanche</small></span></div>
+          <div><b className="client-count">+200</b><span><strong>Clientes ativos</strong><small>Operações ajustando margens</small></span></div>
+          <div><b>✓</b><span><strong>Garantia de 7 dias</strong><small>Teste sem risco na Hotmart</small></span></div>
+          <div><b>✓</b><span><strong>Gestão Mix + Cardápio</strong><small>30 dias grátis no plano Completo</small></span></div>
         </div>
       </section>
 
       <section className="credibility-bar" aria-label="Por que confiar no Precifica Mix">
         <div className="container credibility-grid">
           <div><strong>Operação real</strong><span>Criado por quem vive food service</span></div>
-          <div><strong>Não é planilha</strong><span>Sistema guiado e fácil de usar</span></div>
-          <div><strong>Preço por canal</strong><span>Balcão, delivery e aplicativos</span></div>
+          <div><strong>Sem planilha complexa</strong><span>Sistema guiado no navegador</span></div>
+          <div><strong>Foco em lucro real</strong><span>Balcão, delivery e cardápio digital</span></div>
         </div>
       </section>
 
@@ -358,8 +337,8 @@ export default function Home() {
         <div className="container">
           <div className="section-heading centered">
             <span className="section-kicker">O PREJUÍZO QUE NÃO APARECE</span>
-            <h2>Três erros silenciosos podem fazer seus pedidos <em>trabalharem contra o lucro.</em></h2>
-            <p>O prejuízo geralmente começa na forma como o preço é definido: copiando o concorrente, multiplicando o custo por dois ou confundindo faturamento com lucro.</p>
+            <h2>Três erros que fazem seus pedidos <em>trabalharem contra o lucro.</em></h2>
+            <p>Quando o preço ignora embalagem, perdas ou taxas, o movimento alto não vira dinheiro no caixa.</p>
           </div>
           <div className="pain-grid">
             {painPoints.map((item) => (
@@ -373,8 +352,8 @@ export default function Home() {
           <div className="belief-card">
             <div className="belief-icon">!</div>
             <div>
-              <strong>Você não precisa ser bom com números para precificar certo.</strong>
-              <p>O Precifica Mix transforma contas complicadas em um processo guiado. Se você conhece a sua receita, consegue organizar seus preços.</p>
+              <strong>Você não precisa ser expert em finanças para precificar certo.</strong>
+              <p>O Precifica Mix guia o cálculo passo a passo: você coloca insumos e margens e vê o preço ideal por canal.</p>
             </div>
           </div>
         </div>
@@ -389,13 +368,13 @@ export default function Home() {
           <div className="solution-copy">
             <span className="section-kicker">DA RECEITA AO PREÇO IDEAL</span>
             <h2>Chega de decidir no escuro.</h2>
-            <p>Monte a ficha técnica uma vez e deixe o sistema transformar ingredientes, rendimentos e despesas em informação clara para você agir.</p>
+            <p>Monte a ficha técnica uma vez e enxergue custo, margem e preço recomendado antes de vender.</p>
             <ul className="check-list">
-              <li><CheckIcon /><span><strong>Custos atualizados automaticamente</strong><small>Altere o preço de um insumo e veja o impacto nos produtos.</small></span></li>
-              <li><CheckIcon /><span><strong>Margem visível antes de vender</strong><small>Saiba se o preço está saudável sem esperar fechar o mês.</small></span></li>
-              <li><CheckIcon /><span><strong>Decisões com mais segurança</strong><small>Ajuste porção, fornecedor ou preço com base em números reais.</small></span></li>
+              <li><CheckIcon /><span><strong>Custos atualizados rápido</strong><small>Ajuste o preço do insumo e veja o impacto nos lanches.</small></span></li>
+              <li><CheckIcon /><span><strong>Margem clara por canal</strong><small>Evite perder lucro com taxas e embalagens esquecidas.</small></span></li>
+              <li><CheckIcon /><span><strong>Mais vendas com o Gestão Mix</strong><small>No plano Completo, leve 30 dias com cardápio digital para otimizar pedidos.</small></span></li>
             </ul>
-            <a className="text-cta" href="#oferta">QUERO VER A OFERTA <span>→</span></a>
+            <a className="text-cta" href="#oferta">VER OFERTA DE BLACK FRIDAY <span>→</span></a>
           </div>
           <MiniPricingScreen />
         </div>
@@ -404,8 +383,8 @@ export default function Home() {
       <section className="features-section section-space">
         <div className="container">
           <div className="section-heading centered">
-            <span className="section-kicker">TUDO O QUE VOCÊ PRECISA PARA COMEÇAR</span>
-            <h2>Um processo simples para colocar<br /><em>seu cardápio sob controle.</em></h2>
+            <span className="section-kicker">TUDO O QUE VOCÊ PRECISA</span>
+            <h2>Controle total do cardápio em <em>poucos minutos.</em></h2>
           </div>
           <div className="features-grid">
             {features.map((feature) => (
@@ -423,11 +402,8 @@ export default function Home() {
         <div className="container">
           <div className="section-heading centered">
             <span className="section-kicker">LUCRO DIFERENTE EM CADA CANAL</span>
-            <h2>O preço que funciona no balcão pode dar <em>prejuízo no delivery.</em></h2>
-            <p>
-              O Precifica Mix permite considerar as taxas dos canais de venda para você não confundir
-              faturamento com o valor que realmente fica no caixa.
-            </p>
+            <h2>O preço do balcão pode dar <em>prejuízo no delivery.</em></h2>
+            <p>Configure taxas de iFood, maquininhas e marketplaces para proteger sua margem em cada pedido.</p>
           </div>
           <div className="channels-grid">
             {salesChannels.map((channel) => (
@@ -441,8 +417,8 @@ export default function Home() {
             ))}
           </div>
           <div className="channel-callout">
-            <strong>Veja o custo real da venda antes de definir o preço.</strong>
-            <span>Taxas percentuais, cobranças fixas e condições de cada canal entram na sua análise.</span>
+            <strong>Taxa de 17,19% e custos de canal na conta.</strong>
+            <span>Veja quanto realmente sobra no caixa antes de publicar seu preço.</span>
           </div>
         </div>
       </section>
@@ -463,10 +439,10 @@ export default function Home() {
           </div>
           <div className="library-copy">
             <span className="section-kicker">COMECE SEM PERDER HORAS</span>
-            <h2>Insumos pré-cadastrados para facilitar sua configuração.</h2>
-            <p>Em vez de começar com uma tela vazia, você recebe modelos de ingredientes, molhos e embalagens comuns em hamburguerias e só precisa adaptar os preços para a sua realidade.</p>
-            <div className="speed-stat"><strong>50</strong><span>insumos para importar e acelerar os primeiros cadastros</span></div>
-            <p className="reassurance"><CheckIcon /> Você mantém liberdade total para editar e criar seus próprios itens.</p>
+            <h2>50 insumos prontos para acelerar seu início.</h2>
+            <p>Importe modelos comuns de hamburguerias e adapte apenas os valores da sua região.</p>
+            <div className="speed-stat"><strong>50</strong><span>insumos pré-cadastrados para montar suas fichas mais rápido</span></div>
+            <p className="reassurance"><CheckIcon /> Edite, duplique ou crie seus próprios itens quando quiser.</p>
           </div>
         </div>
       </section>
@@ -475,12 +451,12 @@ export default function Home() {
         <div className="container">
           <div className="section-heading centered light-heading">
             <span className="section-kicker">SIMPLES DE VERDADE</span>
-            <h2>Em três passos você começa<br />a enxergar seus números.</h2>
+            <h2>Em três passos você enxerga<br />a margem real do seu lanche.</h2>
           </div>
           <div className="steps-grid">
-            <article><span>1</span><div><small>PRIMEIRO PASSO</small><h3>Cadastre os insumos</h3><p>Informe o que compra, a quantidade da embalagem e o valor pago.</p></div></article>
-            <article><span>2</span><div><small>SEGUNDO PASSO</small><h3>Monte seus produtos</h3><p>Adicione ingredientes, porções, rendimento e embalagem na ficha técnica.</p></div></article>
-            <article><span>3</span><div><small>TERCEIRO PASSO</small><h3>Confira o preço ideal</h3><p>Veja custo, margem, preço recomendado e onde precisa corrigir.</p></div></article>
+            <article><span>1</span><div><small>PASSO 01</small><h3>Cadastre os insumos</h3><p>Informe o valor pago, quantidade e unidade do ingrediente ou embalagem.</p></div></article>
+            <article><span>2</span><div><small>PASSO 02</small><h3>Monte a ficha técnica</h3><p>Defina gramaturas, rendimento e custos extras do produto.</p></div></article>
+            <article><span>3</span><div><small>PASSO 03</small><h3>Defina o preço ideal</h3><p>Veja o preço recomendado para balcão e delivery com margem protegida.</p></div></article>
           </div>
         </div>
       </section>
@@ -489,31 +465,31 @@ export default function Home() {
         <div className="container">
           <div className="section-heading centered">
             <span className="section-kicker">A DIFERENÇA NA PRÁTICA</span>
-            <h2>Continue no achismo ou comece<br /><em>a decidir com clareza.</em></h2>
+            <h2>Achismo ou clareza na <em>hora de vender?</em></h2>
           </div>
           <div className="comparison-grid">
             <article className="without-card">
               <div className="comparison-title"><span>×</span><div><small>SEM O PRECIFICA MIX</small><strong>Decisão no escuro</strong></div></div>
               <ul>
                 <li><b>×</b> Copia preço da concorrência</li>
-                <li><b>×</b> Não sabe o custo de cada porção</li>
-                <li><b>×</b> Descobre o prejuízo tarde demais</li>
-                <li><b>×</b> Perde tempo com planilhas confusas</li>
-                <li><b>×</b> Compra sem enxergar o estoque</li>
+                <li><b>×</b> Não sabe o custo real da porção</li>
+                <li><b>×</b> Descobre o prejuízo tarde</li>
+                <li><b>×</b> Trava em planilhas confusas</li>
+                <li><b>×</b> Perde margem nas taxas de entrega</li>
               </ul>
             </article>
             <article className="with-card">
-              <div className="comparison-title"><span>✓</span><div><small>COM O PRECIFICA MIX</small><strong>Decisão com segurança</strong></div></div>
+              <div className="comparison-title"><span>✓</span><div><small>COM O PRECIFICA MIX</small><strong>Decisão com margem</strong></div></div>
               <ul>
-                <li><b>✓</b> Vê o custo real de cada produto</li>
-                <li><b>✓</b> Define sua própria margem</li>
-                <li><b>✓</b> Corrige produtos antes de perder</li>
-                <li><b>✓</b> Organiza fichas técnicas</li>
-                <li><b>✓</b> Controla insumos e estoque</li>
+                <li><b>✓</b> Custo exato por receita e porção</li>
+                <li><b>✓</b> Margem definida por canal de venda</li>
+                <li><b>✓</b> Corrige preços antes de perder</li>
+                <li><b>✓</b> Fichas técnicas e estoque organizados</li>
+                <li><b>✓</b> No Completo: Gestão Mix + cardápio digital</li>
               </ul>
             </article>
           </div>
-          <a className="secondary-cta" href="#oferta">QUERO TER MAIS CLAREZA NO MEU NEGÓCIO <span>→</span></a>
+          <a className="secondary-cta" href="#oferta">ESCOLHER MEU PLANO DE BLACK FRIDAY <span>→</span></a>
         </div>
       </section>
 
@@ -531,41 +507,31 @@ export default function Home() {
               />
               <figcaption>
                 <strong>Luís e Lucas · Criadores do Precifica Mix</strong>
-                <span>Experiência real + tecnologia aplicada à operação.</span>
+                <span>8+ anos na operação de food service + tecnologia simples.</span>
               </figcaption>
             </figure>
 
             <div className="founders-copy">
-              <span className="section-kicker">QUEM ESTÁ POR TRÁS DO PRECIFICA MIX</span>
-              <h2 id="founders-title">Criado por quem vive a rotina de food service <em>todos os dias.</em></h2>
+              <span className="section-kicker">QUEM ESTÁ POR TRÁS</span>
+              <h2 id="founders-title">Feito por quem vive o balcão <em>todos os dias.</em></h2>
               <p>
-                O Precifica Mix nasceu dentro de uma sorveteria real, a partir de um problema que
-                muitos donos de negócios de alimentação conhecem: vender, trabalhar muito e ainda
-                não saber exatamente quanto sobra em cada produto.
+                Criamos o Precifica Mix a partir da rotina real de alimentação: vender muito, trabalhar duro e precisar enxergar o lucro exato de cada produto sem contas complexas.
               </p>
               <p>
-                De um lado, mais de 8 anos de experiência prática em operações de alimentação, com
-                produção, operação, custos, estoque e precificações feitas manualmente. Do outro, a experiência de um gerente
-                de food service e bacharel em Sistemas de Informação, que transformou essa rotina em
-                uma ferramenta simples de usar.
-              </p>
-              <p>
-                Dessa parceria nasceu o Precifica Mix: uma solução direta para transformar contas
-                manuais em fichas técnicas claras, organizar custos e encontrar um preço de venda
-                mais seguro, mesmo para quem não entende de fórmulas ou sistemas complicados.
+                Unimos experiência prática de operação com tecnologia simples para você precificar rápido e focar no que gera resultado.
               </p>
               <div className="founders-signature">
                 <span aria-hidden="true">✓</span>
-                <p><strong>Não nasceu apenas da teoria.</strong> Nasceu de problemas que nós mesmos precisávamos resolver.</p>
+                <p><strong>Operação de verdade.</strong> Ferramenta pensada para a rotina de hamburguerias e lanchonetes.</p>
               </div>
             </div>
           </div>
 
           <div className="testimonials-wrap" aria-labelledby="testimonials-title">
             <div className="testimonials-heading">
-              <span className="section-kicker">DEPOIMENTOS DE CLIENTES</span>
-              <h3 id="testimonials-title">Quem usa o Precifica Mix conta o que mudou na hora de precificar.</h3>
-              <p>Experiências de negócios de alimentação que começaram a olhar para custos, taxas e margens com mais clareza.</p>
+              <span className="section-kicker">RESULTADOS DE CLIENTES</span>
+              <h3 id="testimonials-title">Quem usa o Precifica Mix no dia a dia.</h3>
+              <p>Relatos de quem ajustou custos, taxas e margens para parar de trabalhar no prejuízo.</p>
             </div>
             <div className="testimonials-grid">
               <article className="testimonial-card">
@@ -610,8 +576,8 @@ export default function Home() {
         <div className="container audience-grid">
           <div>
             <span className="section-kicker">FEITO PARA HAMBURGUERIAS</span>
-            <h2>Do smash ao artesanal: enxergue o custo de cada montagem.</h2>
-            <p>Não importa se está começando ou se já vende todos os dias. O importante é considerar cada ingrediente, adicional, embalagem e taxa antes de definir o preço.</p>
+            <h2>Do smash ao artesanal: cada item na conta.</h2>
+            <p>Calcule lanches, combos, adicionais e embalagens com clareza para balcão, retirada e delivery.</p>
           </div>
           <div className="audience-list">
             {audiences.map((audience) => <div key={audience}><CheckIcon />{audience}</div>)}
@@ -622,33 +588,33 @@ export default function Home() {
       <section className="guidance-section section-space" aria-labelledby="guidance-title" data-reveal>
         <div className="container">
           <div className="section-heading centered">
-            <span className="section-kicker">VOCÊ NÃO PRECISA DESCOBRIR TUDO SOZINHO</span>
-            <h2 id="guidance-title">Ferramenta simples, orientação para começar e <em>ajuda quando precisar.</em></h2>
-            <p>Além do acesso ao sistema, você recebe conteúdos e suporte para transformar seus dados em uma precificação mais segura.</p>
+            <span className="section-kicker">COMEÇO GUIADO</span>
+            <h2 id="guidance-title">Simples de usar e com <em>suporte quando precisar.</em></h2>
+            <p>Aulas curtas, orientação inicial e garantia de 7 dias para testar na sua operação.</p>
           </div>
           <div className="guidance-grid">
             <article>
               <span aria-hidden="true">▶</span>
               <h3>Videoaulas passo a passo</h3>
-              <p>Aprenda a cadastrar ingredientes, montar fichas técnicas e conferir os preços recomendados sem depender de aulas longas.</p>
+              <p>Aprenda a cadastrar insumos, montar fichas e ajustar margens sem enrolação.</p>
             </article>
             <article>
               <span aria-hidden="true">1</span>
-              <h3>Acompanhamento inicial</h3>
-              <p>Receba orientações para organizar os primeiros cadastros e começar a utilizar a ferramenta com mais segurança.</p>
+              <h3>Orientação inicial</h3>
+              <p>Passo a passo direto para configurar seus primeiros produtos com segurança.</p>
             </article>
             <article>
               <span aria-hidden="true">♥</span>
-              <h3>Suporte humanizado</h3>
-              <p>Quando surgir uma dúvida sobre o uso, você fala com uma pessoa de verdade e recebe uma orientação clara.</p>
+              <h3>Suporte humano</h3>
+              <p>Atendimento direto para tirar dúvidas sobre o uso do sistema.</p>
             </article>
           </div>
           <div className="guarantee-banner">
             <strong>7</strong>
             <div>
               <span>GARANTIA INCONDICIONAL DE 7 DIAS</span>
-              <h3>Conheça o Precifica Mix sem correr risco.</h3>
-              <p>Cadastre seus produtos, faça suas primeiras precificações e confira se a ferramenta funciona para sua operação. Se não fizer sentido, você pode solicitar o reembolso dentro do prazo da garantia.</p>
+              <h3>Teste o Precifica Mix sem risco.</h3>
+              <p>Cadastre seus lanches, confira suas margens e, se não fizer sentido para o seu negócio, peça o reembolso dentro do prazo da garantia.</p>
             </div>
             <a href="#oferta">QUERO COMEÇAR SEM RISCO <span>→</span></a>
           </div>
@@ -659,25 +625,25 @@ export default function Home() {
         <div className="container offer-wrap">
           <div className="offer-copy">
             <Brand />
-            <span className="section-kicker">OFERTA ESPECIAL · PAGAMENTO ÚNICO</span>
-            <h2>Escolha como você quer começar a precificar.</h2>
-            <p>Cadastre seus produtos, simule cenários e encontre o preço certo. O Precifica Mix faz as contas, organiza as informações e ainda oferece ajuda para você dar os primeiros passos.</p>
+            <span className="section-kicker">BLACK FRIDAY · PAGAMENTO ÚNICO</span>
+            <h2>Escolha seu plano e otimize suas vendas.</h2>
+            <p>Comece com o Essencial por R$ 37 ou leve o Completo por R$ 67 com 30 fichas técnicas + 30 dias de Gestão Mix com cardápio digital.</p>
             <ul className="offer-benefits">
-              <li><CheckIcon /> Precificação correta por canal</li>
-              <li><CheckIcon /> Simulação de vendas e lucro</li>
-              <li><CheckIcon /> Fichas técnicas completas</li>
-              <li><CheckIcon /> Controle de estoque</li>
-              <li><CheckIcon /> Mais de 50 insumos para importar</li>
-              <li><CheckIcon /> Videoaulas passo a passo</li>
-              <li><CheckIcon /> Acompanhamento inicial</li>
-              <li><CheckIcon /> Suporte humanizado</li>
+              <li><CheckIcon /> Precificação por canal (17,19% iFood)</li>
+              <li><CheckIcon /> Fichas técnicas e margem real</li>
+              <li><CheckIcon /> 50 insumos prontos para importar</li>
+              <li><CheckIcon /> Estoque, aulas e suporte</li>
+              <li><CheckIcon /> +30 fichas técnicas (Plano Completo)</li>
+              <li><CheckIcon /> Gestão Mix + cardápio digital (30 dias)</li>
+              <li><CheckIcon /> Sem cobrança automática após 30 dias</li>
+              <li><CheckIcon /> Garantia de 7 dias na Hotmart</li>
             </ul>
           </div>
           <div className="offer-card-column">
             <div className="mobile-offer-headline">
-              <span>OFERTA ESPECIAL · PAGAMENTO ÚNICO</span>
-              <h2>Dois planos. Um jeito mais fácil de precificar.</h2>
-              <p>Escolha o Essencial ou leve também as 30 fichas técnicas no Completo.</p>
+              <span>BLACK FRIDAY · PAGAMENTO ÚNICO</span>
+              <h2>Dois planos para precificar e vender melhor.</h2>
+              <p>No Completo (R$ 67), ganhe 30 fichas + 30 dias de Gestão Mix com cardápio digital.</p>
             </div>
             <OfferPlans essentialUrl={CHECKOUT_URL} completeUrl={COMPLETE_CHECKOUT_URL} />
           </div>
@@ -687,10 +653,10 @@ export default function Home() {
       <section id="duvidas" className="faq-section section-space" data-reveal>
         <div className="container faq-wrap">
           <div className="faq-heading">
-            <span className="section-kicker">PERGUNTAS FREQUENTES</span>
-            <h2>Ainda ficou com alguma dúvida?</h2>
-            <p>Veja as respostas mais importantes antes de começar.</p>
-            <a href="https://wa.me/5531983238881?text=Ol%C3%A1%21%20Gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20o%20Precifica%20Mix." target="_blank" rel="noreferrer">FALAR COM O SUPORTE <span>→</span></a>
+            <span className="section-kicker">DÚVIDAS RÁPIDAS</span>
+            <h2>Tudo claro antes de começar.</h2>
+            <p>Respostas diretas sobre planos, cardápio digital e garantia.</p>
+            <a href="https://wa.me/5531983238881?text=Ol%C3%A1%21%20Gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20o%20Precifica%20Mix." target="_blank" rel="noreferrer">FALAR NO WHATSAPP <span>→</span></a>
           </div>
           <div className="faq-list">
             {faqs.map((faq) => (
@@ -706,11 +672,11 @@ export default function Home() {
       <section className="final-cta">
         <div className="container final-card">
           <div>
-            <span className="section-kicker">SEU PRÓXIMO PREÇO PODE SER UMA DECISÃO MELHOR</span>
-            <h2>Pare de precificar no achismo.</h2>
-            <p>Organize ingredientes, adicionais, embalagens, fichas técnicas e estoque em uma ferramenta preparada para a rotina de hamburguerias.</p>
+            <span className="section-kicker">BLACK FRIDAY · MARGEM E VENDAS SOB CONTROLE</span>
+            <h2>Pare de perder lucro no preço do lanche.</h2>
+            <p>Calcule certo no Precifica Mix e leve o Gestão Mix com cardápio digital no plano Completo para otimizar suas vendas.</p>
           </div>
-          <a href="#oferta">QUERO CONHECER O PRECIFICA MIX <span>→</span></a>
+          <a href="#oferta">VER PLANOS AGORA <span>→</span></a>
         </div>
       </section>
 
